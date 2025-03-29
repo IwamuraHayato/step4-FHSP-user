@@ -78,7 +78,7 @@ export default function LoginPage() {
           <p className="text-xs text-center mb-4 text-[#562305]">
             (無料アカウントの作成)
           </p>
-          <Link href="/register" className="block">
+          <Link href="/register/step1" className="block">
             <button className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305] my-4">
               新規登録
             </button>
