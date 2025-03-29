@@ -31,7 +31,7 @@ export default function LoginPage() {
                 type="email"
                 name="email"
                 required
-                className="input w-full border border-[#D4C8BB]"
+                className="input w-full border border-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]"
               />
             </div>
 
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 type="password"
                 name="password"
                 required
-                className="input w-full border border-[#D4C8BB]"
+                className="input w-full border border-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]"
               />
               <div className="text-center mt-1">
                 <Link
