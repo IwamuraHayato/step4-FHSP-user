@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import AuthHeader from "@/components/common/AuthHeader";
+import AuthHeader from '@/components/common/AuthHeader';
 
 export default function LoginPage() {
   return (
@@ -9,13 +9,21 @@ export default function LoginPage() {
       <AuthHeader />
 
       {/* Main Content */}
-      <main className="flex-1 max-w-md w-full mx-auto mt-12 px-4 space-y-8">
-      <h1 className="text-xl font-bold text-center mb-6 text-[#562305]">ログイン</h1>
-        {/* Login Form */}
-        <section className="border rounded-lg p-6 shadow-sm bg-white">
-          <form className="space-y-4">
+      <main className="flex-1 max-w-md w-full mx-auto mt-12 px-10 space-y-8">
+        {/* タイトル */}
+        <h1 className="text-xl font-bold text-center tracking-wider mb-6 text-[#562305]">
+          ログイン
+        </h1>
+
+        {/* ログインフォーム */}
+        <section className="border rounded-md p-8 border-[#D4C8BB] bg-white">
+          <form className="space-y-8">
+            {/* メールアドレス */}
             <div>
-              <label htmlFor="email" className="block text-sm mb-2 text-[#562305]">
+              <label
+                htmlFor="email"
+                className="block font-bold text-sm mb-2 text-[#562305]"
+              >
                 メールアドレス
               </label>
               <input
@@ -23,11 +31,16 @@ export default function LoginPage() {
                 type="email"
                 name="email"
                 required
-                className="input input-bordered w-full"
+                className="input w-full border border-[#D4C8BB]"
               />
             </div>
+
+            {/* パスワード */}
             <div>
-              <label htmlFor="password" className="block text-sm mb-2 text-[#562305]">
+              <label
+                htmlFor="password"
+                className="block font-bold text-sm mb-2 text-[#562305]"
+              >
                 パスワード
               </label>
               <input
@@ -35,32 +48,38 @@ export default function LoginPage() {
                 type="password"
                 name="password"
                 required
-                className="input input-bordered w-full"
+                className="input w-full border border-[#D4C8BB]"
               />
-              <div className="text-right mt-1">
+              <div className="text-center mt-1">
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-gray-600 hover:underline"
+                  className="text-sm text-[#562305] hover:underline"
                 >
                   パスワードをお忘れの方はこちら
                 </Link>
               </div>
             </div>
+
+            {/* ログインボタン */}
             <button
               type="submit"
-              className="btn w-full bg-[#D4C4B5] hover:bg-[#C4B4A5] text-black"
+              className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305]"
             >
               ログイン
             </button>
           </form>
         </section>
 
-        {/* Registration Section */}
-        <section className="border rounded-lg p-6 shadow-sm bg-white">
-          <h2 className="text-center mb-1 text-[#562305]">はじめてご利用の方</h2>
-          <p className="text-sm text-center text-gray-500 mb-4">(無料アカウントの作成)</p>
+        {/* 新規登録エリア */}
+        <section className="border rounded-md p-8 border-[#D4C8BB] bg-white">
+          <h2 className="font-bold text-center tracking-wider mb-1 text-[#562305]">
+            はじめてご利用の方
+          </h2>
+          <p className="text-xs text-center mb-4 text-[#562305]">
+            (無料アカウントの作成)
+          </p>
           <Link href="/register" className="block">
-            <button className="btn btn-outline w-full bg-[#D4C4B5] hover:bg-[#C4B4A5] text-black">
+            <button className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305] my-4">
               新規登録
             </button>
           </Link>

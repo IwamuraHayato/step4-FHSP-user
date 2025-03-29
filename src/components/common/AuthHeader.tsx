@@ -7,7 +7,7 @@ export default function AuthHeader() {
     <header className="relative bg-[#F0EDE3] h-[100px]">
       {/* ロゴ中央配置（上下左右） */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-[80px] h-[40px]">
+        <div className="relative w-[80px] h-[40px] mx-auto">
           <Image
             src="/images/logo.png"
             alt="HAPPY SMILE PASSPORT ロゴ"

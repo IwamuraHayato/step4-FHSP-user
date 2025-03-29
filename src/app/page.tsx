@@ -60,9 +60,10 @@ export default function HelloPage() {
                   className="w-8 h-8 relative"
                 >
                   <Image
-                    src="/heart.svg"
+                    src="/images/heart.svg"
                     alt="heart icon"
-                    fill
+                    width={32}
+                    height={32}
                     style={{ objectFit: 'contain' }}
                     priority
                   />
