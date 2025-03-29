@@ -53,7 +53,7 @@ export default function RegisterStep1() {
       <StepIndicator current={1} />
 
       <main className="flex-1 max-w-md w-full mx-auto mt-8 px-10">
-        <h1 className="text-xl font-bold text-[#562305] mb-8">基本情報</h1>
+        <h1 className="text-xl font-bold tracking-wider text-[#562305] mb-8">基本情報</h1>
 
         <form onSubmit={handleNext} className="space-y-8">
           {/* 名前 */}
