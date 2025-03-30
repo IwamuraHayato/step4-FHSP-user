@@ -7,7 +7,7 @@ export default function HomeHeader() {
   return (
     <header className="relative bg-[#F0EDE3] h-[100px]">
       {/* 左上：UserPlus + Bell 横並び */}
-      <div className="absolute left-4 top-4 flex items-center gap-3">
+      <div className="absolute left-6 top-10 flex items-center gap-3">
         <button className="text-[#562305] hover:opacity-70">
           <UserPlus className="w-6 h-6" />
         </button>
