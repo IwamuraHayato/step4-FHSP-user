@@ -7,9 +7,9 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 interface Props {
   points: {
-    saibuPoint: number; // 🚧 西部ガス連携ポイント
-    nimocaPoint: number; // 🚧 Nimoca連携ポイント
-    happySmilePoint: number; // 🚧 Happy Smile本体のポイント
+    saibuPoint: number;
+    nimocaPoint: number;
+    happySmilePoint: number;
     total: number;
     familyPoints: Record<string, number>;
   };
@@ -114,27 +114,53 @@ export default function PointCarousel({ points }: Props) {
           {/* Slide 3: Happy Smile Connect */}
           <SwiperSlide>
             <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 bg-white flex flex-col justify-center">
-              <div className="text-[#EB3223] text-lg font-bold text-center leading-tight mb-8">
+              <div className="text-[#9F8372] text-xl font-bold text-center leading-tight mb-8">
                 Happy Smile Connect
               </div>
               <div className="flex justify-center gap-4">
+                {/* Saibu Point */}
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 bg-blue-400 text-white rounded-full flex items-center justify-center shadow-2xl mb-1">
-                    {points.saibuPoint}
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: 'rgba(101, 190, 255, 1)',
+                      boxShadow:
+                        '0 0 8px 2px rgba(101, 190, 255, 0.5), 0 0 12px 6px rgba(101, 190, 255, 0.2)',
+                    }}
+                  >
+                    <span className="text-white font-bold">{points.saibuPoint}</span>
                   </div>
-                  <div className="text-xs text-[#562305]">Saibu Point</div>
+                  <div className="text-xs text-[#65BEFF] mt-2 font-bold">SAIBU POINT</div>
                 </div>
+
+                {/* Nimoca Point */}
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 bg-pink-400 text-white rounded-full flex items-center justify-center shadow-2xl mb-1">
-                    {points.nimocaPoint}
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: 'rgba(248, 143, 148, 1)',
+                      boxShadow:
+                        '0 0 8px 2px rgba(248, 143, 148, 0.5), 0 0 12px 6px rgba(248, 143, 148, 0.2)',
+                    }}
+                  >
+                    <span className="text-white font-bold">{points.nimocaPoint}</span>
                   </div>
-                  <div className="text-xs text-[#562305]">Nimoca Point</div>
+                  <div className="text-xs text-[#F88F94] mt-2 font-bold">nimoca</div>
                 </div>
+
+                {/* Happy Smile Point */}
                 <div className="flex flex-col items-center">
-                  <div className="w-24 h-24 bg-yellow-400 text-white rounded-full flex items-center justify-center shadow-2xl mb-1">
-                    {points.happySmilePoint}
+                  <div
+                    className="w-20 h-20 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: 'rgba(255, 228, 76, 1)',
+                      boxShadow:
+                        '0 0 8px 2px rgba(255, 228, 76, 0.5), 0 0 12px 6px rgba(255, 228, 76, 0.2)',
+                    }}
+                  >
+                    <span className="text-white font-bold">{points.happySmilePoint}</span>
                   </div>
-                  <div className="text-xs text-[#562305]">HAPPY SMILE</div>
+                  <div className="text-xs text-[#FFE44C] mt-2 font-bold">Happy Smile </div>
                 </div>
               </div>
             </div>

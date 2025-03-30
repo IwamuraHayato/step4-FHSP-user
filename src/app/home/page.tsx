@@ -3,17 +3,19 @@
 import { useEffect, useState } from 'react';
 import HomeHeader from '@/components/common/HomeHeader';
 import HappySmilePointCarousel from '@/components/home/PointCarousel';
+import NextMissionCard from '@/components/home/NextMissionCard';
+import LatestQuestCard from '@/components/home/LatestQuestCard';
 
 export default function HomePage() {
   const [points, setPoints] = useState<null | {
-    saibuPoint: number; // 西部ガスポイント
-    nimocaPoint: number; // Nimocaポイント
-    happySmilePoint: number; // HappySmileポイント
-    total: number; // 合算ポイント
-    familyPoints: Record<string, number>; // 各メンバーのポイント
+    saibuPoint: number;
+    nimocaPoint: number;
+    happySmilePoint: number;
+    total: number;
+    familyPoints: Record<string, number>;
   }>(null);
 
-  // 一時的なモックデータ（本番ではAPI等と接続）
+  // 一時的なモックデータ（後でAPIに置き換え）
   useEffect(() => {
     const mockData = {
       saibuPoint: 150,
@@ -32,16 +34,22 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8F4F1]">
+    <div className="min-h-screen bg-[#F0EDE3]">
       <HomeHeader />
 
-      <main className="px-4 pt-6 space-y-6 max-w-md mx-auto">
-        {/* ポイントカルーセル（Happy Smile Connect） */}
+      <main className="px-4 pt-2 space-y-6 max-w-md mx-auto">
+        {/* ポイントカルーセル */}
         {points ? (
           <HappySmilePointCarousel points={points} />
         ) : (
           <div className="text-center text-[#9F8372]">ポイントを取得中...</div>
         )}
+
+        {/* 🟨 ミッション & クエストカード */}
+        <div className="grid grid-cols-2 gap-4">
+          <NextMissionCard destination="宗像市" remainingSteps={5000} />
+          <LatestQuestCard nickname="もりぃ" questName="公園でみんなで遊ぼう" />
+        </div>
 
         {/* 今後のセクション */}
         <div className="text-sm text-center text-[#9F8372] mt-10">
