@@ -1,72 +1,105 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AuthHeader from '@/components/common/AuthHeader';
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
+  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSendCode = async () => {
+    if (!email.includes('@')) {
+      setError('有効なメールアドレスを入力してください');
+      return;
+    }
+
+    setError('');
+    // 🚧 本番ではここでAPI連携でメール送信
+    console.log('📩 認証コードを送信:', email);
+    setIsCodeSent(true);
+  };
+
+  const handleVerify = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (code === '123456') {
+      router.push('/home'); // 🚧 認証成功時の処理
+    } else {
+      setError('認証コードが間違っています');
+    }
+  };
+
+  const inputClass =
+    'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <AuthHeader />
 
-      {/* Main Content */}
       <main className="flex-1 max-w-md w-full mx-auto mt-12 px-10 space-y-8">
-        {/* タイトル */}
         <h1 className="text-xl font-bold text-center tracking-wider mb-6 text-[#562305]">
           ログイン
         </h1>
 
-        {/* ログインフォーム */}
+        {/* メール認証フォーム */}
         <section className="border rounded-md p-8 border-[#D4C8BB] bg-white">
-          <form className="space-y-8">
-            {/* メールアドレス */}
+          <form onSubmit={handleVerify} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="block font-bold text-sm mb-2 text-[#562305]"
-              >
+              <label className="block font-bold text-sm mb-2 text-[#562305]">
                 メールアドレス
               </label>
               <input
-                id="email"
                 type="email"
-                name="email"
+                placeholder="example@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={inputClass}
                 required
-                className="input w-full border border-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]"
               />
             </div>
 
-            {/* パスワード */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block font-bold text-sm mb-2 text-[#562305]"
+            {!isCodeSent && (
+              <button
+                type="button"
+                onClick={handleSendCode}
+                className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305]"
               >
-                パスワード
-              </label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                required
-                className="input w-full border border-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]"
-              />
-              <div className="text-center mt-1">
-                <Link
-                  href="/forgot-password"
-                  className="text-sm text-[#562305] hover:underline"
-                >
-                  パスワードをお忘れの方はこちら
-                </Link>
-              </div>
-            </div>
+                ログイン
+              </button>
+            )}
 
-            {/* ログインボタン */}
-            <button
-              type="submit"
-              className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305]"
-            >
-              ログイン
-            </button>
+            {isCodeSent && (
+              <>
+                <div>
+                  <label className="block font-bold text-sm mb-2 text-[#562305]">
+                    認証コード
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="123456"
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                    className={inputClass}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305]"
+                >
+                  認証してログイン
+                </button>
+              </>
+            )}
+
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
           </form>
         </section>
 
