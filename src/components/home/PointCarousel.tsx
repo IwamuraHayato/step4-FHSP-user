@@ -58,7 +58,7 @@ export default function PointCarousel({ points }: Props) {
           <SwiperSlide>
             <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 bg-white flex flex-col justify-start">
               <div className="text-[#EB3223] font-bold text-center text-lg mb-2">FAMILY POINT</div>
-              <div className="text-[#562305] text-2xl text-center font-bold mb-4">
+              <div className="text-[#562305] text-xl text-center font-bold mb-4">
                 {points.total.toLocaleString()} P
               </div>
               <div className="flex items-start gap-4">

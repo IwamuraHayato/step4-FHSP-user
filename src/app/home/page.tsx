@@ -50,6 +50,23 @@ export default function HomePage() {
           <NextMissionCard destination="宗像市" remainingSteps={5000} />
           <LatestQuestCard nickname="もりぃ" questName="公園でみんなで遊ぼう" />
         </div>
+        
+        <div className="relative bg-[#FFA54A] py-3 px-4 mt-6 text-white font-bold text-center text-lg">
+          {/* 左上のツリー */}
+          <img
+            src="/images/tree.png"
+            alt="tree left"
+            className="absolute top-0 left-2 w-8 h-8 -translate-y-1/2"
+          />
+          {/* 右上のツリー */}
+          <img
+            src="/images/tree.png"
+            alt="tree right"
+            className="absolute top-0 right-2 w-8 h-8 -translate-y-1/2"
+          />
+
+          EVENT・CAMPAIGN
+        </div>
 
         {/* 今後のセクション */}
         <div className="text-sm text-center text-[#9F8372] mt-10">
