@@ -44,7 +44,7 @@ export default function RegisterStep3() {
       <AuthHeader />
       <StepIndicator current={3} />
 
-      <main className="flex-1 max-w-md w-full mx-auto mt-8 px-6">
+      <main className="flex-1 max-w-md w-full mx-auto mt-8 px-10">
         <h1 className="text-xl font-bold tracking-wider text-[#562305] mb-6">メール認証</h1>
 
         <form onSubmit={handleVerify} className="space-y-6">
