@@ -6,6 +6,8 @@ import HappySmilePointCarousel from '@/components/home/PointCarousel';
 import NextMissionCard from '@/components/home/NextMissionCard';
 import LatestQuestCard from '@/components/home/LatestQuestCard';
 import EventCard from '@/components/home/EventCard';
+import BottomNav from '@/components/common/BottomNav';
+import FloatingButton from '@/components/common/FloatingButton';
 
 export default function HomePage() {
   const [points, setPoints] = useState<null | {
@@ -16,7 +18,6 @@ export default function HomePage() {
     familyPoints: Record<string, number>;
   }>(null);
 
-  // 一時的なモックデータ（後でAPIに置き換え）
   useEffect(() => {
     const mockData = {
       saibuPoint: 150,
@@ -86,37 +87,31 @@ export default function HomePage() {
       points: 50,
     },
   ];
-  
 
   return (
-    <div className="min-h-screen bg-[#F0EDE3] ">
+    <div className="min-h-screen bg-[#F0EDE3] pb-32 relative">
       <HomeHeader />
 
       <main className="px-4 pt-2 space-y-6 max-w-md mx-auto">
-        {/* ポイントカルーセル */}
         {points ? (
           <HappySmilePointCarousel points={points} />
         ) : (
           <div className="text-center text-[#9F8372]">ポイントを取得中...</div>
         )}
 
-        {/* 🟨 ミッション & クエストカード */}
         <div className="grid grid-cols-2 gap-4">
           <NextMissionCard destination="宗像市" remainingSteps={5000} />
           <LatestQuestCard nickname="もりぃ" questName="公園でみんなで遊ぼう" />
         </div>
 
-        {/* 上に余白 */}
         <div className="h-4" />
 
         <div className="relative bg-[#FFA54A] py-4 px-4 text-white font-bold text-center text-lg">
-          {/* 左上のツリー */}
           <img
             src="/images/tree.png"
             alt="tree left"
             className="absolute top-0 left-2 w-12 h-12 -translate-y-1/2"
           />
-          {/* 右上のbus */}
           <img
             src="/images/nishitetsubus.png"
             alt="bus right"
@@ -125,8 +120,6 @@ export default function HomePage() {
           EVENT・CAMPAIGN
         </div>
 
-
-        {/* イベント一覧セクション */}
         <section className="mt-6">
           <div className="grid grid-cols-2 gap-3">
             {mockEvents.slice(0, 6).map((event) => (
@@ -135,13 +128,19 @@ export default function HomePage() {
           </div>
 
           <div className="mt-4 text-center">
-            <button className="text-sm text-[#9F8372] underline hover:opacity-80" onClick={() => alert('検索ページへ遷移予定')}>
+            <button
+              className="text-sm text-[#9F8372] underline hover:opacity-80"
+              onClick={() => alert('検索ページへ遷移予定')}
+            >
               もっとみる ＞
             </button>
           </div>
         </section>
-        <div className="h-4" />
       </main>
+
+      {/* ← 👇 ボタン位置を下に + サイズアップ */}
+      <FloatingButton href="/kids-compass" className="bottom-16 right-[-12px] w-32 h-32" />
+      <BottomNav />
     </div>
   );
 }
