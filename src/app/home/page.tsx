@@ -5,6 +5,7 @@ import HomeHeader from '@/components/common/HomeHeader';
 import HappySmilePointCarousel from '@/components/home/PointCarousel';
 import NextMissionCard from '@/components/home/NextMissionCard';
 import LatestQuestCard from '@/components/home/LatestQuestCard';
+import EventCard from '@/components/home/EventCard';
 
 export default function HomePage() {
   const [points, setPoints] = useState<null | {
@@ -33,6 +34,60 @@ export default function HomePage() {
     setPoints(mockData);
   }, []);
 
+  const mockEvents = [
+    {
+      id: 'e1',
+      imageUrl: '/images/event1.jpg',
+      area: '福岡市東区',
+      title: '福マルシェ @アイランドシティ',
+      date: '2025/04/13',
+      tags: ['地域活性化', 'グルメ', 'のんびり派'],
+      points: 100,
+    },
+    {
+      id: 'e2',
+      imageUrl: '/images/event2.jpg',
+      area: '福岡市中央区',
+      title: '福岡城さくらまつり',
+      date: '2025/04/01',
+      tags: ['お祭り', 'のんびり派', 'エンタメ'],
+    },
+    {
+      id: 'e3',
+      imageUrl: '/images/event3.jpg',
+      area: '福岡市西区',
+      title: '謎解きスタンプラリー',
+      date: '2025/04/20',
+      tags: ['ウォーキング', 'アクティブ', '地域イベント'],
+    },
+    {
+      id: 'e4',
+      imageUrl: '/images/event4.jpg',
+      area: '古賀市',
+      title: '春のいちご狩りイベント',
+      date: '2025/04/10',
+      tags: ['スイーツ', '学び・体験', 'アクティブ'],
+    },
+    {
+      id: 'e5',
+      imageUrl: '/images/event5.jpg',
+      area: '飯塚市',
+      title: 'CHIKUHOU酒まつり',
+      date: '2025/03/29',
+      tags: ['グルメ', '地域イベント', 'お祭り'],
+    },
+    {
+      id: 'e6',
+      imageUrl: '/images/event6.jpg',
+      area: '久留米市',
+      title: '久留米花まつり',
+      date: '2025/04/15',
+      tags: ['文化・歴史', '地域イベント', 'お祭り'],
+      points: 50,
+    },
+  ];
+  
+
   return (
     <div className="min-h-screen bg-[#F0EDE3]">
       <HomeHeader />
@@ -58,15 +113,31 @@ export default function HomePage() {
             alt="tree left"
             className="absolute top-0 left-2 w-8 h-8 -translate-y-1/2"
           />
-          {/* 右上のツリー */}
+          {/* 右上のbus */}
           <img
-            src="/images/tree.png"
+            src="/images/nishitetsubus.png"
             alt="tree right"
             className="absolute top-0 right-2 w-8 h-8 -translate-y-1/2"
           />
 
           EVENT・CAMPAIGN
         </div>
+
+        {/* イベント一覧セクション */}
+        <section className="mt-8">
+          <div className="grid grid-cols-2 gap-4">
+            {mockEvents.slice(0, 6).map((event) => (
+              <EventCard key={event.id} {...event} />
+            ))}
+          </div>
+
+          <div className="mt-4 text-center">
+            <button className="text-sm text-[#562305] underline hover:opacity-80" onClick={() => alert('検索ページへ遷移予定')}>
+              もっとみる ＞
+            </button>
+          </div>
+        </section>
+
 
         {/* 今後のセクション */}
         <div className="text-sm text-center text-[#9F8372] mt-10">
