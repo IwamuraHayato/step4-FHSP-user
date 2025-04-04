@@ -1,86 +1,78 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import { Star } from 'lucide-react';
+import { useState } from 'react';
 
 interface EventCardProps {
-  id: string;
   imageUrl: string;
   area: string;
   title: string;
   date: string;
   tags: string[];
   points?: number;
+  defaultFavorite?: boolean;
 }
 
 export default function EventCard({
-  id,
   imageUrl,
   area,
   title,
   date,
   tags,
   points,
+  defaultFavorite = false,
 }: EventCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(defaultFavorite);
 
-  const handleToggleFavorite = () => {
+  const toggleFavorite = () => {
     setIsFavorite((prev) => !prev);
-    // 🚧 実際はここでお気に入りAPIにリクエスト送信
-    console.log(`イベント ${id} のお気に入り:`, !isFavorite);
+
+    // 🚧 DBに保存したい場合はここでAPI連携
+    console.log(`${title} を ${!isFavorite ? 'お気に入り登録' : 'お気に入り解除'}しました`);
   };
 
   return (
-    <div className="relative rounded-md shadow-md overflow-hidden border border-[#E0DAD3] bg-white p-2">
+    <div className="rounded-md border border-[#E4E4E4] shadow-md bg-white p-3">
       {/* イベント画像 */}
-      <div className="relative h-32 w-full">
-        <Image
-          src={imageUrl}
-          alt={title}
-          fill
-          className="object-cover"
-        />
-
-        {/* ポイントバッジ */}
+      <div className="relative w-full h-[120px] rounded overflow-hidden mb-2">
+        <Image src={imageUrl} alt={title} fill className="object-cover" />
         {points && (
-          <div className="absolute top-2 left-2 bg-[#FF6B6B] text-white text-[10px] font-bold px-2 py-1 rounded-full">
+          <div className="absolute top-2 left-2 bg-[#FF6B6B] text-white text-xs px-2 py-0.5 rounded-full font-bold">
             {points}ポイント
           </div>
         )}
+      </div>
 
-        {/* お気に入りボタン */}
-        <button
-          onClick={handleToggleFavorite}
-          className="absolute top-2 right-2 text-[#EB3223]"
-        >
+      {/* エリア・タイトル・★ */}
+      <div className="flex justify-between items-start">
+        <div className="flex flex-col">
+          <span className="text-xs text-[#562305] font-bold mb-1">{area}</span>
+          <span className="text-sm font-bold text-[#000]">{title}</span>
+        </div>
+
+        <button onClick={toggleFavorite} aria-label="お気に入り">
           <Star
-            size={20}
-            fill={isFavorite ? '#EB3223' : 'none'}
-            strokeWidth={1.5}
+            className={`w-5 h-5 ${
+              isFavorite ? 'fill-[#FFA54A] text-[#FFA54A]' : 'text-[#D4C8BB]'
+            } transition-colors`}
           />
         </button>
       </div>
 
-      {/* イベント情報 */}
-      <div className="p-3 space-y-1">
-        <p className="text-xs font-bold text-[#562305]">{area}</p>
-        <p className="text-sm font-bold text-[#562305] leading-tight truncate">
-          {title}
-        </p>
-        <p className="text-sm text-[#562305] font-semibold">{date}</p>
+      {/* 日付 */}
+      <div className="text-xs text-[#562305] font-bold mt-1">{date}</div>
 
-        {/* タグ */}
-        <div className="flex flex-wrap gap-1 mt-1">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[10px] text-[#9F8372] bg-[#F8F4F1] rounded px-2 py-[2px]"
-            >
-              #{tag}
-            </span>
-          ))}
-        </div>
+      {/* タグ */}
+      <div className="mt-2 flex flex-wrap gap-1">
+        {tags.map((tag) => (
+          <span
+            key={tag}
+            className="text-[10px] text-[#9F8372] bg-[#F0EDE3] rounded-full px-2 py-0.5"
+          >
+            #{tag}
+          </span>
+        ))}
       </div>
     </div>
   );

@@ -89,7 +89,7 @@ export default function HomePage() {
   
 
   return (
-    <div className="min-h-screen bg-[#F0EDE3]">
+    <div className="min-h-screen bg-[#F0EDE3] ">
       <HomeHeader />
 
       <main className="px-4 pt-2 space-y-6 max-w-md mx-auto">
@@ -105,44 +105,42 @@ export default function HomePage() {
           <NextMissionCard destination="宗像市" remainingSteps={5000} />
           <LatestQuestCard nickname="もりぃ" questName="公園でみんなで遊ぼう" />
         </div>
-        
-        <div className="relative bg-[#FFA54A] py-3 px-4 mt-6 text-white font-bold text-center text-lg">
+
+        {/* 上に余白 */}
+        <div className="h-4" />
+
+        <div className="relative bg-[#FFA54A] py-4 px-4 text-white font-bold text-center text-lg">
           {/* 左上のツリー */}
           <img
             src="/images/tree.png"
             alt="tree left"
-            className="absolute top-0 left-2 w-8 h-8 -translate-y-1/2"
+            className="absolute top-0 left-2 w-12 h-12 -translate-y-1/2"
           />
           {/* 右上のbus */}
           <img
             src="/images/nishitetsubus.png"
-            alt="tree right"
-            className="absolute top-0 right-2 w-8 h-8 -translate-y-1/2"
+            alt="bus right"
+            className="absolute top-0 right-2 w-13 h-11 -translate-y-1/2"
           />
-
           EVENT・CAMPAIGN
         </div>
 
+
         {/* イベント一覧セクション */}
-        <section className="mt-8">
-          <div className="grid grid-cols-2 gap-4">
+        <section className="mt-6">
+          <div className="grid grid-cols-2 gap-3">
             {mockEvents.slice(0, 6).map((event) => (
               <EventCard key={event.id} {...event} />
             ))}
           </div>
 
           <div className="mt-4 text-center">
-            <button className="text-sm text-[#562305] underline hover:opacity-80" onClick={() => alert('検索ページへ遷移予定')}>
+            <button className="text-sm text-[#9F8372] underline hover:opacity-80" onClick={() => alert('検索ページへ遷移予定')}>
               もっとみる ＞
             </button>
           </div>
         </section>
-
-
-        {/* 今後のセクション */}
-        <div className="text-sm text-center text-[#9F8372] mt-10">
-          この付近にクエストやイベントカードが表示されます。
-        </div>
+        <div className="h-4" />
       </main>
     </div>
   );
