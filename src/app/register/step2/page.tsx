@@ -9,18 +9,7 @@ import SelectableTagList from '@/components/common/SelectableTagList';
 
 export default function RegisterStep2() {
   const router = useRouter();
-
-  const [selectedTransport, setSelectedTransport] = useState<string[]>([]);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-
-  const transportOptions = [
-    { id: 'walk', label: '徒歩' },
-    { id: 'bike', label: '自転車' },
-    { id: 'car', label: '車' },
-    { id: 'subway', label: '地下鉄' },
-    { id: 'train', label: '電車' },
-    { id: 'bus', label: 'バス' },
-  ];
 
   const interestOptions = [
     { id: 'active', label: 'アクティブ' },
@@ -51,12 +40,6 @@ export default function RegisterStep2() {
     { id: 'lifestyle', label: 'ライフスタイル' },
   ];
 
-  const handleToggleTransport = (id: string) => {
-    setSelectedTransport((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
   const handleToggleInterest = (id: string) => {
     setSelectedInterests((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -81,18 +64,6 @@ export default function RegisterStep2() {
         </p>
 
         <form onSubmit={handleNext} className="space-y-8">
-          {/* 移動手段セクション */}
-          <section className="w-full rounded-md bg-[#F0EDE3] py-6">
-            <div className="max-w-md mx-auto px-4 space-y-4">
-              <h2 className="text-sm font-bold text-[#562305]">よく使う移動手段 ＞</h2>
-              <SelectableTagList
-                options={transportOptions}
-                selected={selectedTransport}
-                onToggle={handleToggleTransport}
-              />
-            </div>
-          </section>
-
           {/* 興味関心セクション */}
           <section className="w-full rounded-md bg-[#F0EDE3] py-6">
             <div className="max-w-md mx-auto px-4 space-y-4">
