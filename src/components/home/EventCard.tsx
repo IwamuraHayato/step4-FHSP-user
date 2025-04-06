@@ -10,6 +10,7 @@ interface EventCardProps {
   title: string;
   date: string;
   tags: string[];
+  description?: string;
   points?: number;
   defaultFavorite?: boolean;
 }
@@ -20,6 +21,7 @@ export default function EventCard({
   title,
   date,
   tags,
+  description = 'ここにイベントの説明文が入ります。これはダミーテキストです。実際の情報に置き換えてください。',
   points,
   defaultFavorite = false,
 }: EventCardProps) {
@@ -27,8 +29,6 @@ export default function EventCard({
 
   const toggleFavorite = () => {
     setIsFavorite((prev) => !prev);
-
-    // 🚧 DBに保存したい場合はここでAPI連携
     console.log(`${title} を ${!isFavorite ? 'お気に入り登録' : 'お気に入り解除'}しました`);
   };
 
@@ -44,33 +44,45 @@ export default function EventCard({
         )}
       </div>
 
-      {/* エリア・タイトル・★ */}
-      <div className="flex justify-between items-start">
-        <div className="flex flex-col">
-          <span className="text-xs text-[#562305] font-bold mb-1">{area}</span>
-          <span className="text-sm font-bold text-[#000]">{title}</span>
-        </div>
-
-        <button onClick={toggleFavorite} aria-label="お気に入り">
-          <Star
-            className={`w-5 h-5 ${
-              isFavorite ? 'fill-[#FFA54A] text-[#FFA54A]' : 'text-[#D4C8BB]'
-            } transition-colors`}
-          />
-        </button>
+          <div className="relative">
+      {/* エリア・タイトル */}
+      <div className="flex flex-col pr-6"> {/* ← 星分のスペース確保 */}
+        <span className="text-xs font-semibold text-[#FFA54A] mb-1">{area}</span>
+        <span className="block text-sm font-bold text-[#000] truncate whitespace-nowrap overflow-hidden">
+          {title}
+        </span>
       </div>
 
-      {/* 日付 */}
-      <div className="text-xs text-[#562305] font-bold mt-1">{date}</div>
+      {/* お気に入りボタン（右上に固定） */}
+      <button
+        onClick={toggleFavorite}
+        aria-label="お気に入り"
+        className="absolute top-0 right-0"
+      >
+        <Star
+          className={`w-5 h-5 ${
+            isFavorite ? 'fill-[#FFA54A] text-[#FFA54A]' : 'text-[#D4C8BB]'
+          } transition-colors`}
+        />
+      </button>
+    </div>
 
-      {/* タグ */}
-      <div className="mt-2 flex flex-wrap gap-1">
+      {/* 日付 */}
+      <div className="text-xs font text-[#000000] mt-2">{date}</div>
+
+      {/* 概要 */}
+      <p className="text-xs text-[#000000] mt-1 line-clamp-2">
+        {description}
+      </p>
+
+      {/* タグ（#なし・背景色あり・2行でカット） */}
+      <div className="mt-2 flex flex-wrap gap-1 max-h-[3.5rem] overflow-hidden">
         {tags.map((tag) => (
           <span
             key={tag}
             className="text-[10px] text-[#9F8372] bg-[#F0EDE3] rounded-full px-2 py-0.5"
           >
-            #{tag}
+            {tag}
           </span>
         ))}
       </div>
