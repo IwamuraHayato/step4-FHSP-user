@@ -72,7 +72,7 @@ export default function EventCard({
       <div className="text-xs text-[#000000] mt-2">{date}</div>
 
       {/* 概要 */}
-      <p className="text-xs text-[#000000] mt-1 line-clamp-2">{description}</p>
+      <p className="text-xs text-[#000000] mt-1 line-clamp-2 min-h-[2.5em]">{description}</p>
 
       {/* タグ */}
       <div className="mt-2 flex flex-wrap gap-1 max-h-[3.5rem] overflow-hidden">
