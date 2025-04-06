@@ -19,20 +19,39 @@ export default function LoginPage() {
     }
 
     setError('');
-    // 🚧 本番ではここでAPI連携でメール送信
-    console.log('📩 認証コードを送信:', email);
-    setIsCodeSent(true);
-  };
-
-  const handleVerify = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (code === '123456') {
-      router.push('/home'); // 🚧 認証成功時の処理
+    const res = await fetch('http://localhost:8000/send-login-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+  
+    const data = await res.json();
+    if (res.ok) {
+      console.log('📩 認証コードを送信:', email);
+      setIsCodeSent(true);
     } else {
-      setError('認証コードが間違っています');
+      setError(data.detail || 'コード送信に失敗しました');
     }
   };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    const res = await fetch('http://localhost:8000/verify-login-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code }),
+    });
+  
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('token', data.access_token);
+      router.push('/home');
+    } else {
+      setError(data.detail || '認証に失敗しました');
+    }
+  };
+  
 
   const inputClass =
     'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
