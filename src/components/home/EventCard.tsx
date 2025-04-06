@@ -9,7 +9,7 @@ interface EventCardProps {
   area: string;
   title: string;
   date: string;
-  tags: string[];
+  tags?: string[];
   description?: string;
   points?: number;
   defaultFavorite?: boolean;
@@ -20,8 +20,8 @@ export default function EventCard({
   area,
   title,
   date,
-  tags,
-  description = 'ここにイベントの説明文が入ります。これはダミーテキストです。実際の情報に置き換えてください。',
+  tags = [],
+  description = 'イベントの説明がまだ登録されていません。',
   points,
   defaultFavorite = false,
 }: EventCardProps) {
@@ -30,6 +30,7 @@ export default function EventCard({
   const toggleFavorite = () => {
     setIsFavorite((prev) => !prev);
     console.log(`${title} を ${!isFavorite ? 'お気に入り登録' : 'お気に入り解除'}しました`);
+    // 🚧 バックエンドと連携する場合はここにAPIリクエスト追加
   };
 
   return (
@@ -44,47 +45,46 @@ export default function EventCard({
         )}
       </div>
 
-          <div className="relative">
-      {/* エリア・タイトル */}
-      <div className="flex flex-col pr-6"> {/* ← 星分のスペース確保 */}
-        <span className="text-xs font-semibold text-[#FFA54A] mb-1">{area}</span>
-        <span className="block text-sm font-bold text-[#000] truncate whitespace-nowrap overflow-hidden">
-          {title}
-        </span>
+      <div className="relative">
+        {/* エリア・タイトル */}
+        <div className="flex flex-col pr-6">
+          <span className="text-xs font-semibold text-[#FFA54A] mb-1">{area}</span>
+          <span className="block text-sm font-bold text-[#000] truncate">
+            {title}
+          </span>
+        </div>
+
+        {/* お気に入りボタン */}
+        <button
+          onClick={toggleFavorite}
+          aria-label="お気に入り"
+          className="absolute top-0 right-0"
+        >
+          <Star
+            className={`w-5 h-5 ${
+              isFavorite ? 'fill-[#FFA54A] text-[#FFA54A]' : 'text-[#D4C8BB]'
+            } transition-colors`}
+          />
+        </button>
       </div>
 
-      {/* お気に入りボタン（右上に固定） */}
-      <button
-        onClick={toggleFavorite}
-        aria-label="お気に入り"
-        className="absolute top-0 right-0"
-      >
-        <Star
-          className={`w-5 h-5 ${
-            isFavorite ? 'fill-[#FFA54A] text-[#FFA54A]' : 'text-[#D4C8BB]'
-          } transition-colors`}
-        />
-      </button>
-    </div>
-
       {/* 日付 */}
-      <div className="text-xs font text-[#000000] mt-2">{date}</div>
+      <div className="text-xs text-[#000000] mt-2">{date}</div>
 
       {/* 概要 */}
-      <p className="text-xs text-[#000000] mt-1 line-clamp-2">
-        {description}
-      </p>
+      <p className="text-xs text-[#000000] mt-1 line-clamp-2">{description}</p>
 
-      {/* タグ（#なし・背景色あり・2行でカット） */}
+      {/* タグ */}
       <div className="mt-2 flex flex-wrap gap-1 max-h-[3.5rem] overflow-hidden">
-        {tags.map((tag) => (
-          <span
-            key={tag}
-            className="text-[10px] text-[#9F8372] bg-[#F0EDE3] rounded-full px-2 py-0.5"
-          >
-            {tag}
-          </span>
-        ))}
+        {Array.isArray(tags) &&
+          tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[10px] text-[#9F8372] bg-[#F0EDE3] rounded-full px-2 py-0.5"
+            >
+              {tag}
+            </span>
+          ))}
       </div>
     </div>
   );

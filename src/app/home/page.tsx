@@ -8,6 +8,7 @@ import LatestQuestCard from '@/components/home/LatestQuestCard';
 import EventCard from '@/components/home/EventCard';
 import BottomNav from '@/components/common/BottomNav';
 import FloatingButton from '@/components/common/FloatingButton';
+import Link from 'next/link';
 
 export default function HomePage() {
   const [points, setPoints] = useState<null | {
@@ -133,13 +134,13 @@ export default function HomePage() {
             ))}
           </div>
 
+          {/* 「もっとみる」ボタン */}
           <div className="mt-4 text-center">
-            <button
-              className="text-sm text-[#9F8372] underline hover:opacity-80"
-              onClick={() => alert('検索ページへ遷移予定')}
-            >
-              もっとみる ＞
-            </button>
+            <Link href="/event">
+              <button className="text-sm text-[#9F8372] underline hover:opacity-80">
+                もっとみる ＞
+              </button>
+            </Link>
           </div>
         </section>
       </main>
