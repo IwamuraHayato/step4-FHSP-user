@@ -5,6 +5,7 @@ import { Star } from 'lucide-react';
 import { useState } from 'react';
 
 interface EventCardProps {
+  id: string
   imageUrl: string;
   area: string;
   title: string;
@@ -16,6 +17,7 @@ interface EventCardProps {
 }
 
 export default function EventCard({
+  id,
   imageUrl,
   area,
   title,
@@ -27,10 +29,32 @@ export default function EventCard({
 }: EventCardProps) {
   const [isFavorite, setIsFavorite] = useState(defaultFavorite);
 
-  const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
-    console.log(`${title} を ${!isFavorite ? 'お気に入り登録' : 'お気に入り解除'}しました`);
-    // 🚧 バックエンドと連携する場合はここにAPIリクエスト追加
+  const toggleFavorite = async () => {
+    const newState = !isFavorite;
+    setIsFavorite(newState);
+  
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/favorite`, {
+        method: newState ? 'POST' : 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          eventTitle: title, // 実際はIDを使うのがベター
+          imageUrl,
+          area,
+          date,
+        }),
+      });
+  
+      if (!res.ok) throw new Error('お気に入り登録に失敗しました');
+      console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
+    } catch (error) {
+      console.error(error);
+      // エラー時には状態を戻す
+      setIsFavorite(!newState);
+    }
   };
 
   return (
