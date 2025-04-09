@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './calendar-style.css'; // ← Tailwindで上書きしたいとき
+import './calendar-style.css'; // Tailwindカスタム上書き
 
 interface FavoriteEvent {
   id: string;
@@ -27,7 +27,7 @@ const mockEvents: FavoriteEvent[] = [
   },
   {
     id: '3',
-    title: '春の花と音楽フェス in 久留米 久留米 久留米 久留米',
+    title: '春の花と音楽フェス in 久留米 ',
     area: '久留米市',
     date: '2025-04-13',
   },
@@ -65,16 +65,16 @@ export default function EventCalendarTab() {
           const events = eventsByDate[key] || [];
           return (
             <div className="mt-1 space-y-0.5">
-              {events.slice(0, 2).map((e) => (
+              {events.slice(0, 3).map((e) => (
                 <div
                   key={e.id}
-                  className="text-[10px] text-[#562305] bg-[#F0EDE3] rounded px-1 truncate line-clamp-2 leading-tight"
+                  className="calendar-event-title"
                 >
                   {e.title}
                 </div>
               ))}
-              {events.length > 2 && (
-                <div className="text-[10px] text-[#9F8372]">+{events.length - 2}件</div>
+              {events.length > 3 && (
+                <div className="text-[10px] text-[#9F8372] text-center">+{events.length - 3}件</div>
               )}
             </div>
           );

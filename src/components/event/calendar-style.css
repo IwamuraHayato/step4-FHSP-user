@@ -1,71 +1,79 @@
 .react-calendar {
-    @apply w-full max-w-md mx-auto text-[#562305] bg-white rounded-lg overflow-hidden;
-    font-family: 'sans-serif';
-    line-height: 1.125;
-  }
-  
-  /* カレンダーのヘッダー */
-  .react-calendar__navigation {
-    @apply flex justify-between items-center p-2 text-sm font-bold text-[#562305];
-  }
-  .react-calendar__navigation button {
-    @apply bg-transparent hover:bg-[#F0EDE3] py-1 px-2 rounded transition;
-  }
-  
-  /* 曜日ヘッダー */
-  .react-calendar__month-view__weekdays {
-    @apply grid grid-cols-7 bg-[#E9E4DC] text-center text-xs text-[#9F8372] font-bold;
-  }
-  .react-calendar__month-view__weekdays__weekday {
-    @apply py-2;
-  }
-  .react-calendar__month-view__weekdays__weekday abbr {
-    text-decoration: none;
-  }
-  
-  /* 各日付セル（全日固定サイズ） */
-  .react-calendar__tile {
-    @apply relative h-[100px] w-[100px] p-1 text-left text-xs align-top border border-[#E9E4DC] overflow-hidden;
-  }
-  .react-calendar__tile:hover {
-    @apply bg-[#F9F6F1];
-  }
-  .react-calendar__tile--now {
-    @apply bg-[#F0EDE3] ;
-  }
-  .react-calendar__tile--active {
-    @apply bg-[#FFD599] text-white;
-  }
-  
-  /* 日付テキスト：左上→中央上に */
-  .react-calendar__tile abbr {
-    @apply block text-center font-bold text-xs;
-    margin-top: 0.25rem;
-  }
-  
-  /* 土曜日を青色 */
-  .react-calendar__month-view__days__day--6 abbr {
-    @apply text-blue-500;
-  }
-  
-  /* タイトルテキスト（イベントタイトルをタグ風に） */
-  .event-title {
-    @apply mt-1 block text-[11px] text-white bg-[#F0EDE3] rounded-full px-2 py-0.5 mx-auto w-[85%] truncate;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    height: 2.5em;
-    text-align: center;
-    line-height: 1.2;
-  }
+  @apply w-full max-w-md mx-auto text-[#562305] bg-white rounded-lg overflow-hidden;
+  font-family: 'sans-serif';
+  line-height: 1.125;
+}
 
-  /* ✅ 日付テキスト（中央上に固定・「日」なし） */
+/* カレンダーのヘッダー */
+.react-calendar__navigation {
+  @apply flex justify-between items-center p-2 text-sm font-bold text-[#562305];
+}
+.react-calendar__navigation button {
+  @apply bg-transparent hover:bg-[#F0EDE3] py-1 px-2 rounded transition;
+}
+
+/* 曜日ヘッダー */
+.react-calendar__month-view__weekdays {
+  @apply grid grid-cols-7 bg-[#E9E4DC] text-center text-xs text-[#9F8372] font-bold;
+}
+.react-calendar__month-view__weekdays__weekday {
+  @apply py-2;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+}
+
+/* 各日付セル（固定サイズ） */
+.react-calendar__tile {
+  @apply relative h-[100px] w-[100px] p-1 border border-[#E9E4DC] overflow-hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* 👈 上寄せ */
+}
+
+/* 日付の上部中央固定 */
 .react-calendar__tile abbr {
-    @apply block font-bold text-xs text-center;
-    margin: 0 auto;
-    position: absolute;
-    top: 4px;
-    left: 0;
-    right: 0;
-  }
+  @apply block font-bold text-xs text-center;
+  margin: 0 auto;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+}
+
+/* 選択日の背景色と文字色 */
+.react-calendar__tile--active {
+  background-color: #d4c8bb !important;
+  color: #ffffff !important;
+}
+.react-calendar__tile--active abbr {
+  color: #ffffff !important;
+}
+
+/* 今日の日付 */
+.react-calendar__tile--now {
+  @apply bg-[#f4f4f1];
+}
+
+/* 土曜日の数字を青色に */
+.react-calendar__month-view__days__day:nth-child(7n+6) abbr {
+  @apply text-blue-500;
+}
+
+/* ✅ イベントタイトルをタグ風に・上寄せ */
+.calendar-event-title {
+  @apply text-[9px] text-white bg-[#F8A54B] rounded-sm px-0.5 py-0.5 w-[95%] text-center;
+  display: -webkit-box;
+  /* -webkit-line-clamp: 1; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 1.4em;
+  margin-top: 1rem; /* 日付との間隔調整 */
+}
+
+/* イベント表示の外枠を上詰めに */
+.calendar-tile-content {
+  @apply flex flex-col justify-start items-center w-full space-y-0.5;
+  margin-top: 1.5rem; /* 日付とイベントの距離調整 */
+}
