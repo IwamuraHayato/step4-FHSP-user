@@ -1,22 +1,29 @@
 // tailwind.config.js
 module.exports = {
-    content: [
-      './src/**/*.{js,ts,jsx,tsx}',
-      './src/app/**/*.{js,ts,jsx,tsx}',
-      './src/components/**/*.{js,ts,jsx,tsx}',
-    ],
-    theme: {
-      extend: {
-        colors: {
-          brown: '#562305',
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      keyframes: {
+        slideUp: {
+          '0%': { transform: 'translateY(100%)' },
+          '100%': { transform: 'translateY(0)' },
         },
-        fontFamily: {
-          sans: ['Montserrat', 'sans-serif'],
+        slideDown: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(100%)' },
         },
       },
+      animation: {
+        slideUp: 'slideUp 0.6s ease-out',
+        slideDown: 'slideDown 0.6s ease-in',
+      },
+      colors: {
+        brown: '#562305',
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+      },
     },
-    plugins: [
-        require('daisyui'), 
-    ],
-  };
-  
+  },
+  plugins: [require('daisyui')],
+};
