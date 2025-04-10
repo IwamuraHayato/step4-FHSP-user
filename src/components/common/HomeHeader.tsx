@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link'; // ← 追加
 import { UserPlus, Bell } from 'lucide-react';
 
 export default function HomeHeader() {
@@ -18,7 +19,7 @@ export default function HomeHeader() {
 
       {/* ロゴ中央配置（上下左右） */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-[80px] h-[40px] mx-auto">
+        <Link href="/home" className="relative w-[80px] h-[40px] mx-auto">
           <Image
             src="/images/logo.png"
             alt="HAPPY SMILE PASSPORT ロゴ"
@@ -26,7 +27,7 @@ export default function HomeHeader() {
             style={{ objectFit: 'contain' }}
             priority
           />
-        </div>
+        </Link>
       </div>
 
       {/* 山イラスト右上配置 */}
