@@ -41,7 +41,7 @@ export default function EventCard({
         },
         body: JSON.stringify({
           id,
-          eventTitle: title, // 実際はIDを使うのがベター
+          eventTitle: title,
           imageUrl,
           area,
           date,
