@@ -61,7 +61,7 @@ export default function EventCard({
     <div className="rounded-md border border-[#E4E4E4] shadow-md bg-white p-3">
       {/* イベント画像 */}
       <div className="relative w-full h-[120px] rounded overflow-hidden mb-2">
-        <Image src={imageUrl} alt={title} fill className="object-cover" />
+        <Image src={imageUrl || '/images/no-image.png'} alt={title} fill className="object-cover" />
         {points && (
           <div className="absolute top-2 left-2 bg-[#FF6B6B] text-white text-xs px-2 py-0.5 rounded-full font-bold">
             {points}ポイント
