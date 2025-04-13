@@ -48,7 +48,12 @@ export default function HomePage() {
         setIsLoading(true); 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/recommendations/${user_id}?top_n=5`);
         const data = await res.json();
-        setRecommendedEvents(data.events);
+
+        if (Array.isArray(data.events)) {
+          setRecommendedEvents(data.events);
+        } else {
+          setRecommendedEvents([]);  // データないときは空配列
+        }
       } catch (error) {
         console.error('おすすめイベントの取得に失敗しました：',error);
       } finally {

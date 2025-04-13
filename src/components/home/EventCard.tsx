@@ -14,6 +14,7 @@ interface EventCardProps {
   description?: string;
   points?: number;
   defaultFavorite?: boolean;
+  user_id: number;
 }
 
 export default function EventCard({
@@ -28,33 +29,24 @@ export default function EventCard({
   defaultFavorite = false,
 }: EventCardProps) {
   const [isFavorite, setIsFavorite] = useState(defaultFavorite);
+  const user_id=3;
 
   const toggleFavorite = async () => {
     const newState = !isFavorite;
     setIsFavorite(newState);
   
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/favorite`, {
-        method: newState ? 'POST' : 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id,
-          eventTitle: title,
-          imageUrl,
-          area,
-          date,
-        }),
-      });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${id}`, {
+      method: newState ? 'POST' : 'DELETE',
+    });
   
-      if (!res.ok) throw new Error('お気に入り登録に失敗しました');
-      console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
-    } catch (error) {
-      console.error(error);
-      // エラー時には状態を戻す
+    if (!res.ok) {
+      console.error('お気に入り登録に失敗しました');
+      // 失敗時は状態を戻す
       setIsFavorite(!newState);
+      return;
     }
+  
+    console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
   };
 
   return (
