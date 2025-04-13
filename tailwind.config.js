@@ -4,18 +4,36 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        slideUp: {
-          '0%': { transform: 'translateY(100%)' },
-          '100%': { transform: 'translateY(0)' },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-8px)' },
         },
-        slideDown: {
-          '0%': { transform: 'translateY(0)' },
-          '100%': { transform: 'translateY(100%)' },
+        jump: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-30%)' },
+        },
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '50%': { transform: 'rotate(15deg)' },
+          '100%': { transform: 'rotate(-15deg)' },
+        },
+        shake: {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(-5px)' },
+          '75%': { transform: 'translateX(5px)' },
+        },
+        shrink: {
+          '0%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(0.6)' },
+          '100%': { transform: 'scale(1)' },
         },
       },
       animation: {
-        slideUp: 'slideUp 0.6s ease-out',
-        slideDown: 'slideDown 0.6s ease-in',
+        float: 'float 2.5s ease-in-out infinite',
+        jump: 'jump 0.5s ease',
+        rotate: 'rotate 0.5s ease',
+        shake: 'shake 0.4s ease',
+        shrink: 'shrink 0.5s ease',
       },
       colors: {
         brown: '#562305',
