@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Loader2, X } from 'lucide-react';
 import EventCard from '@/components/home/EventCard';
 
 export default function EventSearchTab() {
@@ -14,47 +14,66 @@ export default function EventSearchTab() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchDate, setSearchDate] = useState('');
   const [searchTags, setSearchTags] = useState<string[]>([]);
+  const [allEvents, setAllEvents] = useState<FavoriteEvent[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const allEvents = [
-    {
-      id: 'e1', imageUrl: '/images/event1.jpg', area: '福岡市東区', title: '福マルシェ @アイランドシティ', date: '2025-04-13', description: '自然あふれる公園で開催される地元グルメイベント', tags: ['地域活性化', 'グルメ', 'のんびり派'], points: 100,
-    },
-    {
-      id: 'e2', imageUrl: '/images/event2.jpg', area: '福岡市中央区', title: '福岡城さくらまつり', date: '2025-04-01', description: 'お花見と出店が楽しめる春の風物詩！', tags: ['お祭り', 'のんびり派', 'エンタメ'],
-    },
-    {
-      id: 'e3', imageUrl: '/images/event3.jpg', area: '福岡市西区', title: '謎解きスタンプラリー', date: '2025-04-20', description: '商店街で謎解き体験イベント！', tags: ['ウォーキング', 'アクティブ'],
-    },
-    {
-      id: 'e4', imageUrl: '/images/event4.jpg', area: '古賀市', title: 'いちご狩りフェスタ', date: '2025-04-10', description: 'いちごいっぱいの春イベント', tags: ['スイーツ', '学び・体験'],
-    },
-    {
-      id: 'e5', imageUrl: '/images/event5.jpg', area: '飯塚市', title: 'CHIKUHOU酒まつり', date: '2025-03-29', description: '地元のお酒を楽しもう', tags: ['グルメ', 'お祭り'],
-    },
-    {
-      id: 'e6', imageUrl: '/images/event6.jpg', area: '久留米市', title: '久留米花まつり', date: '2025-04-15', description: '花いっぱいのまちで癒される', tags: ['文化・歴史'],
-    },
-    {
-      id: 'e7', imageUrl: '/images/event1.jpg', area: '北九州市', title: 'こども未来フェス', date: '2025-04-18', description: '親子で未来を体験するイベント', tags: ['学び・体験', 'アクティブ'],
-    },
-    {
-      id: 'e8', imageUrl: '/images/event2.jpg', area: '太宰府市', title: 'まちなかマルシェ', date: '2025-04-07', description: '特産品やスイーツが勢ぞろい', tags: ['グルメ', '地域活性化'],
-    },
-    {
-      id: 'e9', imageUrl: '/images/event3.jpg', area: '宗像市', title: '図書館でおはなし会', date: '2025-04-05', description: '親子で楽しむ読み聞かせイベント', tags: ['のんびり派', '学び・体験'],
-    },
-    {
-      id: 'e10', imageUrl: '/images/event4.jpg', area: '春日市', title: '春の桜まつり', date: '2025-04-12', description: '桜と音楽とグルメで楽しもう！', tags: ['お祭り', 'エンタメ'],
-    },
-    {
-      id: 'e11', imageUrl: '/images/event5.jpg', area: '筑紫野市', title: 'アスレチックチャレンジ', date: '2025-04-19', description: 'こども向けの運動体験イベント', tags: ['アクティブ'],
-    },
-  ];
 
   const availableTags = [
     'グルメ', 'お祭り', '地域活性化', 'のんびり派', 'アクティブ',
     '学び・体験', '文化・歴史', 'スイーツ', 'エンタメ', 'ウォーキング'
   ];
+
+  useEffect(
+    () => {
+      const fetchUpcomingEvents = async () => {
+        setIsLoading(true);
+        try{
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/events/upcoming`);
+          const data = await res.json();
+          const now = new Date();
+      
+          const events = data.events.map((e: any) => ({
+            ...e,
+            isPast: new Date(e.date) < now,
+          }));
+      
+          setAllEvents(events);
+        }catch(error){
+          console.error('イベント取得エラー:', error);
+        } finally {
+          setIsLoading(false); 
+        }
+      };
+    
+      fetchUpcomingEvents();
+    }, []
+  );
+
+
+  const fetchEvents = async () => {
+    const tagString = selectedTags.join(',');
+    const query = new URLSearchParams({
+      keyword,
+      date: selectedDate,
+      tags: tagString
+    });
+  
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/events/search?${query.toString()}`);
+    const data = await res.json();
+    const now = new Date();
+  
+    const events = data.events.map((e: any) => ({
+      ...e,
+      isPast: new Date(e.date) < now,
+    }));
+  
+    setSearchTriggered(true);
+    setSearchKeyword(keyword);
+    setSearchDate(selectedDate);
+    setSearchTags(selectedTags);
+    setVisibleCount(8);
+    setAllEvents(events);
+  };
 
   const handleSearch = () => {
     setSearchTriggered(true);
@@ -62,6 +81,7 @@ export default function EventSearchTab() {
     setSearchDate(selectedDate);
     setSearchTags(selectedTags);
     setVisibleCount(8);
+    fetchEvents();
   };
 
   const clearKeyword = () => setKeyword('');
@@ -163,11 +183,18 @@ export default function EventSearchTab() {
       )}
 
       {/* 📄 イベントカード */}
-      <div className="grid grid-cols-2 gap-3">
-        {visibleEvents.map((event) => (
-          <EventCard key={event.id} {...event} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="text-center py-10">
+          <Loader2 className="w-6 h-6 text-[#9F8372] animate-spin mx-auto" />
+          <div className="text-[#9F8372] text-sm mt-2">読み込み中...</div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-3">
+          {visibleEvents.map((event) => (
+            <EventCard key={event.id} {...event} />
+          ))}
+        </div>
+      )}
 
       {/* ▶ もっとみる */}
       {visibleCount < filteredEvents.length && (
