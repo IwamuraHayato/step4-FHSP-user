@@ -10,6 +10,7 @@ import BottomNav from '@/components/common/BottomNav';
 import FloatingButton from '@/components/common/FloatingButton';
 import Link from 'next/link';
 import { motion } from 'framer-motion'
+import { Loader2 } from 'lucide-react';
 
 
 export default function HomePage() {
@@ -101,14 +102,10 @@ export default function HomePage() {
 
         <section className="mt-6">
           {isLoading ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-center text-[#9F8372]"
-            >
+            <div className="flex justify-center items-center text-[#9F8372]">
+              <Loader2 className="w-6 h-6 animate-spin mr-2" />
               おすすめイベントを取得中...
-            </motion.div>
+            </div>
           ) : (
             <motion.div
               initial={{ opacity: 0 }}
