@@ -1,8 +1,9 @@
 .react-calendar {
-  @apply w-full max-w-md mx-auto text-[#562305] bg-white rounded-lg overflow-hidden;
+  @apply w-full max-w-md mx-auto text-[#562305] bg-white rounded-lg; /* 👈 overflow-hidden を削除 */
   font-family: 'sans-serif';
   line-height: 1.125;
 }
+
 
 /* カレンダーのヘッダー */
 .react-calendar__navigation {
