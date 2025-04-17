@@ -14,6 +14,7 @@ interface EventCardProps {
   description?: string;
   points?: number;
   defaultFavorite?: boolean;
+  user_id: number;
 }
 
 export default function EventCard({
@@ -28,40 +29,31 @@ export default function EventCard({
   defaultFavorite = false,
 }: EventCardProps) {
   const [isFavorite, setIsFavorite] = useState(defaultFavorite);
+  const user_id=3;
 
   const toggleFavorite = async () => {
     const newState = !isFavorite;
     setIsFavorite(newState);
   
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/favorite`, {
-        method: newState ? 'POST' : 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id,
-          eventTitle: title, // 実際はIDを使うのがベター
-          imageUrl,
-          area,
-          date,
-        }),
-      });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${id}`, {
+      method: newState ? 'POST' : 'DELETE',
+    });
   
-      if (!res.ok) throw new Error('お気に入り登録に失敗しました');
-      console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
-    } catch (error) {
-      console.error(error);
-      // エラー時には状態を戻す
+    if (!res.ok) {
+      console.error('お気に入り登録に失敗しました');
+      // 失敗時は状態を戻す
       setIsFavorite(!newState);
+      return;
     }
+  
+    console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
   };
 
   return (
     <div className="rounded-md border border-[#E4E4E4] shadow-md bg-white p-3">
       {/* イベント画像 */}
       <div className="relative w-full h-[120px] rounded overflow-hidden mb-2">
-        <Image src={imageUrl} alt={title} fill className="object-cover" />
+        <Image src={imageUrl || '/images/no-image.png'} alt={title} fill className="object-cover" />
         {points && (
           <div className="absolute top-2 left-2 bg-[#FF6B6B] text-white text-xs px-2 py-0.5 rounded-full font-bold">
             {points}ポイント
