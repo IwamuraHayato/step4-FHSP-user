@@ -15,7 +15,7 @@ export default function CharacterSelectModal({
   isOpen,
   onClose,
   onSelect,
-  hasCustomCharacter,
+  // hasCustomCharacter,
 }: CharacterSelectModalProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [customImage, setCustomImage] = useState<string | null>(null);
@@ -80,7 +80,13 @@ export default function CharacterSelectModal({
               onClick={() => onSelect(customImage, true)}
               className="flex flex-col items-center hover:opacity-80"
             >
-              <img src={customImage} alt="手書き" className="w-20 h-20 object-contain" />
+              <Image
+                src={customImage}
+                alt="手書き"
+                width={80}
+                height={80}
+                className="object-contain"
+              />
               <span className="text-xs mt-1 text-[#562305]">オリジナル</span>
             </button>
           ) : (

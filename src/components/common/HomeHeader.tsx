@@ -80,11 +80,18 @@ export default function HomeHeader() {
           <h2 className="text-center font-bold text-[#562305] mb-2">家族登録</h2>
           <hr className="border-[#E9E4DC] mb-4" />
 
-          <img
+          <Image
+            src="/images/sample-qr.png"
+            alt="QRコード"
+            width={128} // w-32 = 32 * 4 = 128px
+            height={128} // h-32 = 32 * 4 = 128px
+            className="mx-auto"
+          />
+          {/* <img
             src="/images/sample-qr.png"
             alt="QRコード"
             className="mx-auto w-32 h-32"
-          />
+          /> */}
 
           <p className="text-sm text-center text-[#562305] mt-4 mb-6 leading-relaxed">
             QRコードを読み込む or シェアボタンで<br />
