@@ -1,6 +1,8 @@
 'use client';
 
-import { Bell, Gift, Zap, User, Cat, PartyPopper, Rocket } from 'lucide-react';
+// import { Bell, Gift, Zap, User, Cat, PartyPopper, Rocket } from 'lucide-react';
+// 使ってなさそうなので一旦不要なものも含めコメントアウト、下記は必要なものだけ
+import { Gift, Cat, PartyPopper, Rocket } from 'lucide-react';
 
 interface QuestMenuProps {
   onOpenCharacterModal: () => void;

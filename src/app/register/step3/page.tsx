@@ -11,7 +11,7 @@ export default function RegisterStep3() {
   const [code, setCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   const handleSendCode = async () => {
     if (!email.includes('@')) {
@@ -29,7 +29,7 @@ export default function RegisterStep3() {
     e.preventDefault();
     // 🚧 本番ではAPIで認証コードを検証
     if (code === '123456') {
-      setSuccess(true);
+      // setSuccess(true);　// 認証後にすぐに画面遷移させるのであればここはstateの変更不要
       router.push('/register/step3_success'); // ✅ 遷移先を変更
     } else {
       setError('認証コードが間違っています');
