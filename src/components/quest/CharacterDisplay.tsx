@@ -26,7 +26,7 @@ export default function CharacterDisplay({ characterSrc }: CharacterDisplayProps
 
   return (
     <div className="relative h-[400px] w-full">
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+      <div className="fixed top-[62%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
         <div className="w-[240px] h-[240px]">
           <Image
             onClick={handleClick}

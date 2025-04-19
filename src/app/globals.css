@@ -19,3 +19,42 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* globals.css に追加 */
+@layer utilities {
+  @media (min-height: 762px) {
+    .py-responsive {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  }
+  @media (max-height: 761px) {
+    .py-responsive {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-height: 680px) {
+    .btn-small {
+      width: 3rem !important;
+      height: 3rem !important;
+    }
+
+    .btn-small img {
+      width: 1.5rem !important; /* 24px */
+      height: 1.5rem !important;
+    }
+  }
+}
+
+@layer utilities {
+  @media (max-height: 680px) {
+    .py-se-sm {
+      padding-top: 1.25rem !important;  /* py-5 */
+      padding-bottom: 1.25rem !important;
+    }
+  }
+}

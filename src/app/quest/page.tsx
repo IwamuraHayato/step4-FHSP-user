@@ -10,13 +10,13 @@ import CharacterSelectModal from '@/components/quest/CharacterSelectModal';
 import BottomQuestButtons from '@/components/quest/BottomQuestButtons';
 import { ChevronLeft } from 'lucide-react';
 
-// 🔙 戻るボタンコンポーネント（位置を下げました）
+// 🔙 戻るボタン
 function BackToHomeButton() {
   const router = useRouter();
   return (
     <button
       onClick={() => router.push('/home')}
-      className="absolute top-28 left-2 bg-gray-300 shadow rounded-full p-2 text-[#562305] hover:bg-[#F0EDE3] transition z-50"
+      className="absolute top-2 left-2 bg-gray-300 bg-opacity-50 shadow rounded-full p-2 text-[#562305] hover:bg-[#F0EDE3] transition z-50"
     >
       <ChevronLeft className="w-5 h-5" />
     </button>
@@ -58,11 +58,10 @@ export default function QuestPage() {
     : 'bg-gradient-to-b from-[#7B80B8] to-[#E7DEF1]';
 
   return (
-    <div className={`min-h-screen ${backgroundClass} pb-32 relative`}>
-      <HomeHeader />
+    <div className={`min-h-screen ${backgroundClass} relative`}>
       <BackToHomeButton />
 
-      <main className="px-10 pt-8 max-w-md mx-auto space-y-6 relative">
+      <main className="px-4 pt-6 pb-36 max-w-md mx-auto space-y-6 relative">
         <QuestMenu onOpenCharacterModal={() => setShowCharacterModal(true)} />
 
         <QuestCard
@@ -82,14 +81,15 @@ export default function QuestPage() {
           onSelect={handleCharacterSelect}
           hasCustomCharacter={hasCustomCharacter}
         />
-
-        <BottomQuestButtons
-          onDailyOpen={() => {}}
-          onFamilyOpen={() => {}}
-          onSpecialOpen={() => {}}
-          onRankingNavigate={() => router.push('/ranking')}
-        />
       </main>
+
+      {/* ✅ フッターは固定表示のまま */}
+      <BottomQuestButtons
+        onDailyOpen={() => {}}
+        onFamilyOpen={() => {}}
+        onSpecialOpen={() => {}}
+        onRankingNavigate={() => router.push('/ranking')}
+      />
     </div>
   );
 }

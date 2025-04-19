@@ -16,9 +16,10 @@ export default function BottomQuestButtons({
   onRankingNavigate,
 }: BottomQuestButtonsProps) {
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-[#14AE5C] py-14 z-50">
-      <div className="max-w-md mx-auto px-6 flex justify-center items-end gap-x-6">
-      <QuestButton
+    <div className="fixed bottom-0 left-0 w-full bg-[#14AE5C] py-responsive z-40">
+      {/* ✅ 親に flex & items-center で中央揃え */}
+      <div className="max-w-md mx-auto px-6 h-full flex justify-center items-center gap-x-6">
+        <QuestButton
           icon={
             <Image
               src="/images/icons/icon_ichigo.png"
@@ -28,7 +29,7 @@ export default function BottomQuestButtons({
             />
           }
           label="デイリー"
-          onClick={onRankingNavigate}
+          onClick={onDailyOpen}
           bgColor="bg-[#FFF78A]"
         />
         <QuestButton
@@ -41,7 +42,7 @@ export default function BottomQuestButtons({
             />
           }
           label="ファミリー"
-          onClick={onRankingNavigate}
+          onClick={onFamilyOpen}
           bgColor="bg-[#FFD6AD]"
         />
         <QuestButton
@@ -54,7 +55,7 @@ export default function BottomQuestButtons({
             />
           }
           label="スペシャル"
-          onClick={onRankingNavigate}
+          onClick={onSpecialOpen}
           bgColor="bg-[#F7ADA7]"
         />
         <QuestButton
@@ -75,7 +76,6 @@ export default function BottomQuestButtons({
   );
 }
 
-// ✅ 共通クエストボタン
 function QuestButton({
   icon,
   label,
@@ -95,10 +95,9 @@ function QuestButton({
       >
         {icon}
       </button>
-      <span className="mt-1 bg-white text-[#562305] text-[10px] px-2 py-1 rounded-full font-semibold shadow">
-      {label}
+      <span className="mt-1 text-white text-[8px] px-2 py-1 rounded-full font-semibold">
+        {label}
       </span>
-
     </div>
   );
 }

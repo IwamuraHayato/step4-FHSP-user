@@ -57,7 +57,7 @@ export default function QuestCard({
   }, [familySteps, userSteps]);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg px-8 py-6 space-y-4 text-center text-[#562305]">
+    <div className="bg-white rounded-xl shadow-xl py-se-sm px-8 py-8 space-y-4 text-center text-[#562305]">
 
       {/* 家族歩数 */}
       <p className="text-3xl font-bold text-slate-800">
