@@ -65,7 +65,7 @@ export default function EventCard({
         {/* エリア・タイトル */}
         <div className="flex flex-col pr-6">
           <span className="text-xs font-semibold text-[#FFA54A] mb-1">{area}</span>
-          <span className="block text-sm font-bold text-[#000] truncate">
+          <span className="block text-sm font-bold text-[#000] line-clamp-2">
             {title}
           </span>
         </div>
