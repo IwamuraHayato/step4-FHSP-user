@@ -13,10 +13,55 @@ export default function RegisterStep1() {
   const [zipcode, setZipcode] = useState('');
   const [address1, setAddress1] = useState('');
 
-  const handleNext = (e: React.FormEvent) => {
+//  const handleNext = (e: React.FormEvent) => {
+//    e.preventDefault();
+//    router.push('/register/step2?user_id=${userId}');
+//  };
+
+  const handleNext = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push('/register/step2');
+
+    // ↓↓↓ 入力値を取得
+    const name = (document.querySelector('input[placeholder="山田 太郎"]') as HTMLInputElement)?.value || "";
+    const name_kana = (document.querySelector('input[placeholder="ヤマダ タロウ"]') as HTMLInputElement)?.value || "";
+    const gender = (document.querySelector('input[name="gender"]:checked') as HTMLInputElement)?.value || "U";
+    const birth_date = (document.querySelector('input[type="date"]') as HTMLInputElement)?.value || "";
+    const address2 = (document.querySelector('input[placeholder="番地・建物名"]') as HTMLInputElement)?.value || "";
+
+    // メールは将来的にログインと合わせる想定ですが、仮で固定値にしてもOK
+    const email = "test@example.com";
+
+    const res = await fetch("http://localhost:8000/register/step1", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        name_kana,
+        gender,
+        birth_date,
+        postal_code: zipcode,
+        address1,
+        address2,
+        email,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const userId = data.user_id;
+
+       // ✅ ここで localStorage に保存！
+      localStorage.setItem("user_id", String(userId));
+      
+      router.push(`/register/step2?user_id=${userId}`);
+    } else {
+      alert(data.detail || "Step1の登録に失敗しました");
+    }
   };
+
 
   const handleZipChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const zip = e.target.value.replace(/[^0-9]/g, '');
@@ -71,15 +116,15 @@ export default function RegisterStep1() {
             <label className="block font-bold text-sm mb-2 text-[#562305]">性別</label>
             <div className="flex gap-4 mt-1">
               <label className="label cursor-pointer space-x-2">
-                <input type="radio" name="gender" className="radio" defaultChecked />
+                <input type="radio" name="gender" className="radio" value="M" defaultChecked />
                 <span className="label-text text-[#562305]">男性</span>
               </label>
               <label className="label cursor-pointer space-x-2">
-                <input type="radio" name="gender" className="radio" />
+                <input type="radio" name="gender" className="radio" value="F" />
                 <span className="label-text text-[#562305]">女性</span>
               </label>
               <label className="label cursor-pointer space-x-2">
-                <input type="radio" name="gender" className="radio" />
+                <input type="radio" name="gender" className="radio" value="U" />
                 <span className="label-text text-[#562305]">回答しない</span>
               </label>
             </div>
