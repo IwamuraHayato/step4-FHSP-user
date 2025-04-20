@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HomeHeader from '@/components/common/HomeHeader';
 import QuestCard from '@/components/quest/QuestCard';
 import CharacterDisplay from '@/components/quest/CharacterDisplay';
 import QuestMenu from '@/components/quest/QuestMenu';
 import CharacterSelectModal from '@/components/quest/CharacterSelectModal';
 import BottomQuestButtons from '@/components/quest/BottomQuestButtons';
+import DailyQuestModal from '@/components/quest/QuestModal/DailyQuestModal';
+import FamilyQuestModal from '@/components/quest/QuestModal/FamilyQuestModal'; // ✅ 追加
 import { ChevronLeft } from 'lucide-react';
 
 // 🔙 戻るボタン
@@ -30,6 +31,10 @@ export default function QuestPage() {
   const [showCharacterModal, setShowCharacterModal] = useState(false);
   const [characterSrc, setCharacterSrc] = useState('/images/characters/bababasuo.png');
   const [hasCustomCharacter, setHasCustomCharacter] = useState(false);
+
+  // ✅ クエストモーダル用ステート
+  const [showDailyModal, setShowDailyModal] = useState(false);
+  const [showFamilyModal, setShowFamilyModal] = useState(false); // ← 追加
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -83,13 +88,17 @@ export default function QuestPage() {
         />
       </main>
 
-      {/* ✅ フッターは固定表示のまま */}
+      {/* ✅ フッタークエストボタン */}
       <BottomQuestButtons
-        onDailyOpen={() => {}}
-        onFamilyOpen={() => {}}
+        onDailyOpen={() => setShowDailyModal(true)}
+        onFamilyOpen={() => setShowFamilyModal(true)} // ← 追加
         onSpecialOpen={() => {}}
         onRankingNavigate={() => router.push('/ranking')}
       />
+
+      {/* ✅ クエストモーダル */}
+      <DailyQuestModal isOpen={showDailyModal} onClose={() => setShowDailyModal(false)} />
+      <FamilyQuestModal isOpen={showFamilyModal} onClose={() => setShowFamilyModal(false)} /> {/* ← 追加 */}
     </div>
   );
 }

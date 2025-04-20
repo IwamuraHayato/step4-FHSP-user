@@ -59,12 +59,3 @@ body {
   }
 }
 
-@layer utilities {
-  @media (max-height: 680px) {
-    .card-small-height {
-      height: 13rem !important; /* h-52 = 13rem */
-      padding-top: 1.25rem !important; /* py-5 */
-      padding-bottom: 1.25rem !important;
-    }
-  }
-}
