@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Trash2 } from 'lucide-react';
+import Image from 'next/image';
 
 interface FavoriteEvent {
   id: string;
@@ -11,6 +12,14 @@ interface FavoriteEvent {
   area: string;
   isPast: boolean;
 }
+
+type FavoriteEventApiResponse = {
+  event_id: string;
+  image_url: string;
+  event_name: string;
+  date: string;
+  area: string;
+};
 
 
 export default function EventListTab() {
@@ -25,7 +34,7 @@ export default function EventListTab() {
       const now = new Date();
 
       const events = data.favorites
-        .map((e: any) => ({
+        .map((e: FavoriteEventApiResponse) => ({
           id: e.event_id,
           imageUrl: e.image_url,
           title: e.event_name,
@@ -33,7 +42,7 @@ export default function EventListTab() {
           date: e.date,
           isPast: new Date(e.date) < now,
         }))
-        .sort((a, b) => {
+        .sort((a: FavoriteEvent, b: FavoriteEvent) => {
           const aTime = new Date(a.date).getTime();
           const bTime = new Date(b.date).getTime();
           if (a.isPast === b.isPast) return aTime - bTime;
@@ -60,10 +69,17 @@ export default function EventListTab() {
           }`}
         >
           {/* 画像 or No image */}
-          <img
+          {/* <img
             src={event.imageUrl || '/images/no-image.png'}
             alt={event.title}
             className="w-24 h-24 object-cover rounded"
+          /> */}
+          <Image
+            src={event.imageUrl || '/images/no-image.png'}
+            alt={event.title}
+            width={96}   // w-24 = 24 * 4 = 96px
+            height={96}  // h-24 = 96px
+            className="object-cover rounded"
           />
 
           {/* イベント情報 */}

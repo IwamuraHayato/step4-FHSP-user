@@ -4,6 +4,20 @@ import { useEffect, useState } from 'react';
 import { Loader2, X } from 'lucide-react';
 import EventCard from '@/components/home/EventCard';
 
+type EventApiResponse = {
+  id: string;
+  title: string;
+  description?: string;
+  date: string;
+  area: string;
+  tags?: string[];
+  imageUrl: string;
+};
+
+type FavoriteEvent = EventApiResponse & {
+  isPast: boolean;
+};
+
 export default function EventSearchTab() {
   const [keyword, setKeyword] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -32,7 +46,7 @@ export default function EventSearchTab() {
           const data = await res.json();
           const now = new Date();
       
-          const events = data.events.map((e: any) => ({
+          const events = data.events.map((e: EventApiResponse) => ({
             ...e,
             isPast: new Date(e.date) < now,
           }));
@@ -62,7 +76,7 @@ export default function EventSearchTab() {
     const data = await res.json();
     const now = new Date();
   
-    const events = data.events.map((e: any) => ({
+    const events = data.events.map((e: EventApiResponse) => ({
       ...e,
       isPast: new Date(e.date) < now,
     }));
@@ -191,7 +205,7 @@ export default function EventSearchTab() {
       ) : (
         <div className="grid grid-cols-2 gap-3">
           {visibleEvents.map((event) => (
-            <EventCard key={event.id} {...event} />
+            <EventCard key={event.id} {...event} user_id={3} />
           ))}
         </div>
       )}
