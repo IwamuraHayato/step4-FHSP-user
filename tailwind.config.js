@@ -1,6 +1,14 @@
 // tailwind.config.js
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  safelist: [
+    // daisyUI ボタンやアラートなど頻出のクラスを追加
+    'btn', 'btn-primary', 'btn-secondary', 'btn-accent', 'btn-neutral',
+    'alert', 'alert-success', 'alert-error', 'badge', 'badge-primary',
+    'card', 'modal', 'modal-box', 'input', 'select', 'tabs', 'tab', 'tab-active',
+    'dropdown', 'dropdown-content', 'menu', 'menu-title'
+    // 使用しているクラスを随時追加していってOK
+  ],
   theme: {
     extend: {
       keyframes: {

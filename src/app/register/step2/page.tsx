@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import AuthHeader from '@/components/common/AuthHeader';
 import StepIndicator from '@/components/register/StepIndicator';
 import SelectableTagList from '@/components/common/SelectableTagList';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 
 export default function RegisterStep2() {
   const router = useRouter();
@@ -52,8 +52,9 @@ export default function RegisterStep2() {
 //    router.push('/register/step3');
 //  };
 
-const searchParams = useSearchParams();
-const userId = searchParams.get('user_id');
+// const searchParams = useSearchParams();
+// const userId = searchParams.get('user_id');
+const userId = 3;
 
 const handleNext = async (e: React.FormEvent) => {
   e.preventDefault();
