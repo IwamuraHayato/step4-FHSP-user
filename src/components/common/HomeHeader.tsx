@@ -65,7 +65,7 @@ export default function HomeHeader() {
       {showModal && (
       <div className="fixed inset-0 z-[9999] bg-black/40 flex items-end justify-center">
         <div
-          className={`bg-white w-full max-w-sm rounded-t-2xl px-6 pt-6 pb-36 relative transition-all duration-300 ${
+          className={`bg-white w-full max-w-sm rounded-t-2xl px-6 pt-6 pb-20 relative transition-all duration-300 ${
             closing ? 'animate-slideDown' : 'animate-slideUp'
           }`}
         >

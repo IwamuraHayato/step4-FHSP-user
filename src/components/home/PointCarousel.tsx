@@ -36,7 +36,7 @@ export default function PointCarousel({ points }: Props) {
         >
           {/* Slide 1: MY POINT */}
           <SwiperSlide>
-            <div className="card shadow-xl border border-[#562305] rounded-xl p-8 h-64 bg-white flex flex-col justify-between">
+            <div className="card shadow-xl border border-[#562305] rounded-xl p-8 h-64 card-small-height bg-white flex flex-col justify-between">
               <div className="flex flex-col items-center gap-2 leading-tight">
                 <div className="text-[#EB3223] font-bold text-lg">MY POINT</div>
                 <div className="text-2xl font-bold text-[#562305]">
@@ -54,9 +54,9 @@ export default function PointCarousel({ points }: Props) {
             </div>
           </SwiperSlide>
 
-          {/* Slide 2: FAMILY POINT + 円グラフ + 凡例 */}
+          {/* Slide 2: FAMILY POINT */}
           <SwiperSlide>
-            <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 bg-white flex flex-col justify-start">
+            <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 card-small-height bg-white flex flex-col justify-start">
               <div className="text-[#EB3223] font-bold text-center text-lg mb-2">FAMILY POINT</div>
               <div className="text-[#562305] text-xl text-center font-bold mb-4">
                 {points.total.toLocaleString()} P
@@ -89,7 +89,7 @@ export default function PointCarousel({ points }: Props) {
                   </ResponsiveContainer>
                 </div>
 
-                {/* 凡例リスト */}
+                {/* 凡例 */}
                 <div className="flex-1 space-y-1 overflow-y-auto max-h-28 pr-2 flex flex-col">
                   {familyDataArray.map(({ name, value, color }) => (
                     <div
@@ -113,7 +113,7 @@ export default function PointCarousel({ points }: Props) {
 
           {/* Slide 3: Happy Smile Connect */}
           <SwiperSlide>
-            <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 bg-white flex flex-col justify-center">
+            <div className="card shadow-xl border border-[#562305] rounded-xl p-6 h-64 card-small-height bg-white flex flex-col justify-center">
               <div className="text-[#9F8372] text-xl font-bold text-center leading-tight mb-8">
                 Happy Smile Connect
               </div>
