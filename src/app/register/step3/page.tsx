@@ -24,7 +24,7 @@ export default function RegisterStep3() {
   const [code, setCode] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
   const handleSendCode = async () => {
     console.log("📨 認証コード送信ボタン押されました");
@@ -91,6 +91,7 @@ const handleVerify = async (e: React.FormEvent) => {
     user_id: Number(userId),
   };
 
+<<<<<<< HEAD
   console.log("🧾 user_id:", userId);
   console.log("🚀 verify-code に送信するデータ:", payload); // ★ここで送信前にログ！
 
@@ -109,6 +110,14 @@ const handleVerify = async (e: React.FormEvent) => {
       console.log('✅ 認証成功');
       setSuccess(true);
       router.push('/register/step3_success');
+=======
+  const handleVerify = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 🚧 本番ではAPIで認証コードを検証
+    if (code === '123456') {
+      // setSuccess(true);　// 認証後にすぐに画面遷移させるのであればここはstateの変更不要
+      router.push('/register/step3_success'); // ✅ 遷移先を変更
+>>>>>>> 9c3963b1717400a1eeac021616655db9b196bcb4
     } else {
       console.error('❌ 認証失敗: ', data);
       setError(data.detail || '認証に失敗しました');

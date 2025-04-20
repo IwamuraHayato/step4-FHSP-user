@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { useState } from 'react';
 
-interface EventCardProps {
+export interface EventCardProps {
   id: string
   imageUrl: string;
   area: string;

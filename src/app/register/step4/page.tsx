@@ -66,8 +66,8 @@ export default function RegisterStep4() {
   }
 };
 
-  const inputClass =
-    'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
+  // const inputClass =
+  //   'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
