@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AuthHeader from '@/components/common/AuthHeader';
 import StepIndicator from '@/components/register/StepIndicator';
@@ -8,6 +8,15 @@ import Link from 'next/link';
 
 export default function RegisterStep4() {
   const router = useRouter();
+
+  // ✅ userId を useState と useEffect で最初に定義しておく！
+  const [userId, setUserId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem('user_id');
+    if (stored) setUserId(Number(stored));
+  }, []);
+
   const [nimocaId, setNimocaId] = useState(['', '', '', '']);
   const [gasCode, setGasCode] = useState('');
   const [nimocaLinked, setNimocaLinked] = useState(false);
@@ -19,11 +28,43 @@ export default function RegisterStep4() {
     setNimocaId(newIds);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // 🚧 連携処理へ
-    router.push('/home');
-  };
+
+    // ✅ userIdがnullかどうかをチェック！
+    if (!userId) {
+      alert('ユーザーIDが見つかりません。最初から登録し直してください。');
+      return;
+    }
+
+  const nimocaFull = nimocaId.join('');
+  const saibugasId = gasCode;
+
+  try {
+    const res = await fetch('http://localhost:8000/register/step4', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_id: userId,
+        nimoca_id: nimocaFull,
+        saibugas_id: saibugasId,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      console.log('✅ Step4 登録成功:', data);
+      router.push('/home');
+    } else {
+      console.error('❌ Step4 登録失敗:', data.detail);
+    }
+  } catch (err) {
+    console.error('❌ 通信エラー:', err);
+  }
+};
 
   const inputClass =
     'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';

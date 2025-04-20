@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import AuthHeader from '@/components/common/AuthHeader';
 import StepIndicator from '@/components/register/StepIndicator';
 import SelectableTagList from '@/components/common/SelectableTagList';
+import { useSearchParams } from 'next/navigation';
 
 export default function RegisterStep2() {
   const router = useRouter();
@@ -46,10 +47,46 @@ export default function RegisterStep2() {
     );
   };
 
-  const handleNext = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push('/register/step3');
-  };
+//  const handleNext = (e: React.FormEvent) => {
+//    e.preventDefault();
+//    router.push('/register/step3');
+//  };
+
+const searchParams = useSearchParams();
+const userId = searchParams.get('user_id');
+
+const handleNext = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!userId) {
+    alert("ユーザーIDが見つかりません。Step1からやり直してください。");
+    return;
+  }
+
+  const res = await fetch('http://localhost:8000/register/step2', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      user_id: Number(userId),
+      tags: selectedInterests,
+    }),
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    // ✅ Step1でURLから取得したuser_idをlocalStorageに保存
+    localStorage.setItem("user_id", String(userId));
+
+    // ✅ Step3に遷移
+    router.push('/register/step3?user_id=${userId}');
+  } else {
+    alert(data.detail || 'Step2の登録に失敗しました');
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
