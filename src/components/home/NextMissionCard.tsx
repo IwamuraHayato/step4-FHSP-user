@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   destination: string;
@@ -8,8 +9,17 @@ interface Props {
 }
 
 export default function NextMissionCard({ destination, remainingSteps }: Props) {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/quest'); // クエストページに遷移
+  };
+
   return (
-    <div className="card bg-white shadow-lg border border-[#562305] p-3 rounded-xl hover:shadow-lg transition relative w-full h-16">
+    <div
+      onClick={handleClick}
+      className="card bg-white shadow-lg border border-[#562305] p-3 rounded-xl hover:shadow-lg transition relative w-full h-16 cursor-pointer"
+    >
       {/* 右上の矢印 */}
       <div className="absolute top-2 right-2">
         <ChevronRight className="w-4 h-4 text-[#D4C8BB]" />
@@ -27,12 +37,12 @@ export default function NextMissionCard({ destination, remainingSteps }: Props) 
 
         {/* プログレスバー */}
         <div className="w-full h-2 bg-[#F0EDE3] rounded-full overflow-hidden">
-        <div
+          <div
             className="h-full bg-gradient-to-r from-[#FFF34A] to-[#FFA54A] transition-all"
             style={{
-            width: `${Math.min((10000 - remainingSteps) / 100, 100)}%`,
+              width: `${Math.min((10000 - remainingSteps) / 100, 100)}%`,
             }}
-        />
+          />
         </div>
       </div>
     </div>

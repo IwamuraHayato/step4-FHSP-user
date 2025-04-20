@@ -73,7 +73,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#F0EDE3] pb-32 relative">
       <HomeHeader />
 
-      <main className="px-4 pt-2 space-y-6 max-w-md mx-auto">
+      <main className="px-6 pt-1 space-y-4 max-w-md mx-auto">
         {points ? (
           <HappySmilePointCarousel points={points} />
         ) : (
@@ -136,8 +136,6 @@ export default function HomePage() {
 
 
       </main>
-
-      <FloatingButton href="/kids-compass" className="bottom-16 right-[-12px] w-32 h-32" />
       <BottomNav />
     </div>
   );
