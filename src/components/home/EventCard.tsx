@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { useState } from 'react';
 
-interface EventCardProps {
+export interface EventCardProps {
   id: string;
   imageUrl: string;
   area: string;
@@ -81,7 +81,7 @@ export default function EventCard({
         <div className="flex flex-col pr-6">
           <span className="text-xs font-semibold text-[#FFA54A] mb-1">{area}</span>
           <span className="block text-sm font-bold text-[#000]">
-            {truncateZenkakuText(title, 20)}
+            {truncateZenkakuText(title, 19)}
           </span>
         </div>
 

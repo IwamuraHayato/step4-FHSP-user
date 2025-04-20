@@ -5,12 +5,14 @@ import HomeHeader from '@/components/common/HomeHeader';
 import HappySmilePointCarousel from '@/components/home/PointCarousel';
 import NextMissionCard from '@/components/home/NextMissionCard';
 import LatestQuestCard from '@/components/home/LatestQuestCard';
-import EventCard from '@/components/home/EventCard';
+import EventCard, { EventCardProps } from '@/components/home/EventCard';
 import BottomNav from '@/components/common/BottomNav';
 import FloatingButton from '@/components/common/FloatingButton';
 import Link from 'next/link';
 import { motion } from 'framer-motion'
 import { Loader2 } from 'lucide-react';
+import Image from 'next/image';
+
 
 
 export default function HomePage() {
@@ -86,7 +88,21 @@ export default function HomePage() {
         <div className="h-4" />
 
         <div className="relative bg-[#FFA54A] py-4 px-4 text-white font-bold text-center text-lg">
-          <img
+        <Image
+          src="/images/tree.png"
+          alt="tree left"
+          width={48} // ← Tailwindの w-12 (12 * 4 = 48px)
+          height={48}
+          className="absolute top-0 left-2 -translate-y-1/2"
+        />
+        <Image
+          src="/images/nishitetsubus.png"
+          alt="bus right"
+          width={52} // ← w-13 は 52px 相当
+          height={44} // ← h-11 は 44px 相当
+          className="absolute top-0 right-2 -translate-y-1/2"
+        />
+          {/* <img
             src="/images/tree.png"
             alt="tree left"
             className="absolute top-0 left-2 w-12 h-12 -translate-y-1/2"
@@ -95,7 +111,7 @@ export default function HomePage() {
             src="/images/nishitetsubus.png"
             alt="bus right"
             className="absolute top-0 right-2 w-13 h-11 -translate-y-1/2"
-          />
+          /> */}
           EVENT・CAMPAIGN
         </div>
 

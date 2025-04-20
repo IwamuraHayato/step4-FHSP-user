@@ -27,14 +27,16 @@ export default function CharacterDisplay({ characterSrc }: CharacterDisplayProps
   return (
     <div className="relative h-[400px] w-full">
       <div className="fixed top-[62%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-        <div className="w-[240px] h-[240px]">
+        <div className="w-[240px] h-[240px] relative">
+
+          {/* キャラ本体 */}
           <Image
             onClick={handleClick}
             src={currentSrc}
             alt="キャラクター"
             width={240}
             height={240}
-            className={`cursor-pointer w-full h-full object-contain transition-all duration-500
+            className={`cursor-pointer w-full h-full object-contain transition-all duration-500 relative z-10
               ${effect === 'float' ? 'animate-float' : ''}
               ${effect === 'jump' ? 'animate-jump' : ''}
               ${effect === 'rotate' ? 'animate-rotate' : ''}
