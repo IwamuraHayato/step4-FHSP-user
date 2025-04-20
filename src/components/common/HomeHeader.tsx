@@ -81,7 +81,7 @@ export default function HomeHeader() {
           <hr className="border-[#E9E4DC] mb-4" />
 
           <Image
-            src="/images/sample-qr.png"
+            src="/images/qrcode.png"
             alt="QRコード"
             width={128} // w-32 = 32 * 4 = 128px
             height={128} // h-32 = 32 * 4 = 128px

@@ -8,7 +8,7 @@ import QuestMenu from '@/components/quest/QuestMenu';
 import CharacterSelectModal from '@/components/quest/CharacterSelectModal';
 import BottomQuestButtons from '@/components/quest/BottomQuestButtons';
 import DailyQuestModal from '@/components/quest/QuestModal/DailyQuestModal';
-import FamilyQuestModal from '@/components/quest/QuestModal/FamilyQuestModal'; // ✅ 追加
+import FamilyQuestModal from '@/components/quest/QuestModal/FamilyQuestModal';
 import { ChevronLeft } from 'lucide-react';
 
 // 🔙 戻るボタン
@@ -32,9 +32,8 @@ export default function QuestPage() {
   const [characterSrc, setCharacterSrc] = useState('/images/characters/bababasuo.png');
   const [hasCustomCharacter, setHasCustomCharacter] = useState(false);
 
-  // ✅ クエストモーダル用ステート
   const [showDailyModal, setShowDailyModal] = useState(false);
-  const [showFamilyModal, setShowFamilyModal] = useState(false); // ← 追加
+  const [showFamilyModal, setShowFamilyModal] = useState(false);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -63,10 +62,10 @@ export default function QuestPage() {
     : 'bg-gradient-to-b from-[#7B80B8] to-[#E7DEF1]';
 
   return (
-    <div className={`min-h-screen ${backgroundClass} relative`}>
+    <div className={`h-[100dvh] w-full ${backgroundClass} relative overflow-hidden`}>
       <BackToHomeButton />
 
-      <main className="px-4 pt-6 pb-36 max-w-md mx-auto space-y-6 relative">
+      <main className="w-full max-w-[480px] px-4 pt-6 pb-36 mx-auto space-y-6 relative">
         <QuestMenu onOpenCharacterModal={() => setShowCharacterModal(true)} />
 
         <QuestCard
@@ -88,17 +87,15 @@ export default function QuestPage() {
         />
       </main>
 
-      {/* ✅ フッタークエストボタン */}
       <BottomQuestButtons
         onDailyOpen={() => setShowDailyModal(true)}
-        onFamilyOpen={() => setShowFamilyModal(true)} // ← 追加
+        onFamilyOpen={() => setShowFamilyModal(true)}
         onSpecialOpen={() => {}}
         onRankingNavigate={() => router.push('/ranking')}
       />
 
-      {/* ✅ クエストモーダル */}
       <DailyQuestModal isOpen={showDailyModal} onClose={() => setShowDailyModal(false)} />
-      <FamilyQuestModal isOpen={showFamilyModal} onClose={() => setShowFamilyModal(false)} /> {/* ← 追加 */}
+      <FamilyQuestModal isOpen={showFamilyModal} onClose={() => setShowFamilyModal(false)} />
     </div>
   );
 }

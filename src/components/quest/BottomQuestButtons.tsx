@@ -67,7 +67,7 @@ export default function BottomQuestButtons({
             />
           }
           label="ランキング"
-          onClick={onRankingNavigate}
+          onClick={() => {}}
           bgColor="bg-[#DDC2FF]"
         />
       </div>

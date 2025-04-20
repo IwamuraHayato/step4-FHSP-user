@@ -38,7 +38,12 @@ export default function EventPage() {
       {activeTab === 'calendar' && <EventCalendarTab />}
 
       {/* 共通のボタン & ナビゲーション */}
-      <FloatingButton href="/kids-compass" className="bottom-16 right-[-12px] w-32 h-32" />
+      <FloatingButton
+        href="/kids-compass"
+        disabled
+        className="bottom-16 right-[-12px] w-32 h-32"
+      />
+
       <BottomNav />
     </div>
   );
