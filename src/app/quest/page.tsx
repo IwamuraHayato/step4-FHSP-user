@@ -1,8 +1,9 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HomeHeader from '@/components/common/HomeHeader';
+// import HomeHeader from '@/components/common/HomeHeader';
 import QuestCard from '@/components/quest/QuestCard';
 import CharacterDisplay from '@/components/quest/CharacterDisplay';
 import QuestMenu from '@/components/quest/QuestMenu';
@@ -16,7 +17,7 @@ function BackToHomeButton() {
   return (
     <button
       onClick={() => router.push('/home')}
-      className="absolute top-2 left-2 bg-gray-300 bg-opacity-50 shadow rounded-full p-2 text-[#562305] hover:bg-[#F0EDE3] transition z-50"
+      className="absolute top-2 left-2 bg-gray-300 bg-opacity-50 shadow rounded-full p-2 text-[#562305] transition z-50"
     >
       <ChevronLeft className="w-5 h-5" />
     </button>

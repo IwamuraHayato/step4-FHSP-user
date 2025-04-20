@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import { CalendarDays, MapPin, Star } from 'lucide-react';
 import HomeHeader from '@/components/common/HomeHeader';
