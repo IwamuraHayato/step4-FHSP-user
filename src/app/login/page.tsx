@@ -18,6 +18,7 @@ export default function LoginPage() {
       return;
     }
 
+<<<<<<< HEAD
     setError('');
     const res = await fetch('http://localhost:8000/send-login-code', {
       method: 'POST',
@@ -52,6 +53,68 @@ export default function LoginPage() {
     }
   };
   
+=======
+    try {
+      const response = await fetch('http://localhost:8000/auth/send-login-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log('✅ 認証コード送信成功:', data);
+        setIsCodeSent(true);
+      } else {
+        console.error('❌ 認証コード送信失敗:', data);
+        setError(data.detail || 'コードの送信に失敗しました');
+      }
+    } catch (error) {
+      console.error('❌ サーバー接続エラー:', error);
+      setError('サーバーに接続できませんでした');
+    }
+  };
+
+
+const handleVerify = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch('http://localhost:8000/auth/login-verify-code', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        code,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // 認証成功 → ホーム画面へ
+      console.log("✅ ログイン成功:", data);
+      // ✅ user_id を保存！（文字列化して保存します）
+      localStorage.setItem("user_id", String(data.user_id));
+      router.push('/home');
+    } else {
+      // 認証失敗 → エラーメッセージを表示
+      console.error("❌ ログイン失敗:", data);
+      setError(data.detail || 'ログインに失敗しました');
+    }
+  } catch (err) {
+    setError('サーバーと接続できませんでした');
+    console.error(err);
+  }
+};
+
+
+>>>>>>> 6badbebdc9cdfb7ce0e1d1fbea549c22a04573a1
 
   const inputClass =
     'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
