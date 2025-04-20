@@ -48,7 +48,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchRecommendedEvent = async () => {
       try {
-        setIsLoading(true); 
+        setIsLoading(true);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/recommendations/${user_id}?top_n=5`);
         const data = await res.json();
 
@@ -61,9 +61,9 @@ export default function HomePage() {
         console.error('おすすめイベントの取得に失敗しました：',error);
       } finally {
         setIsLoading(false);
-      }  
+      }
     };
-  
+
     fetchRecommendedEvent();
   },[user_id]);
 
@@ -85,9 +85,9 @@ export default function HomePage() {
           <LatestQuestCard nickname="もりぃ" questName="公園でみんなで遊ぼう" />
         </div>
 
-        <div className="h-4" />
+        <div className="h-1" />
 
-        <div className="relative bg-[#FFA54A] py-4 px-4 text-white font-bold text-center text-lg">
+        <div className="relative bg-[#FFA54A] py-4 px-4 text-white font-bold text-center text-md">
         <Image
           src="/images/tree.png"
           alt="tree left"
@@ -102,19 +102,8 @@ export default function HomePage() {
           height={44} // ← h-11 は 44px 相当
           className="absolute top-0 right-2 -translate-y-1/2"
         />
-          {/* <img
-            src="/images/tree.png"
-            alt="tree left"
-            className="absolute top-0 left-2 w-12 h-12 -translate-y-1/2"
-          />
-          <img
-            src="/images/nishitetsubus.png"
-            alt="bus right"
-            className="absolute top-0 right-2 w-13 h-11 -translate-y-1/2"
-          /> */}
           EVENT・CAMPAIGN
         </div>
-
 
         <section className="mt-6">
           {isLoading ? (
@@ -128,7 +117,7 @@ export default function HomePage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols gap-3">
                 {recommendedEvents.map((event) => (
                   <EventCard key={event.id} {...event} />
                 ))}

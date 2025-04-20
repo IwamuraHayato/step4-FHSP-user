@@ -203,7 +203,7 @@ export default function EventSearchTab() {
           <div className="text-[#9F8372] text-sm mt-2">読み込み中...</div>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols gap-3">
           {visibleEvents.map((event) => (
             <EventCard key={event.id} {...event} user_id={3} />
           ))}

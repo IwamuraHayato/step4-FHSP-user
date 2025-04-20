@@ -9,9 +9,9 @@ interface Props {
 
 export default function LatestQuestCard({ nickname, questName }: Props) {
   return (
-    <div className="card bg-white shadow-lg border border-[#562305] rounded-xl hover:shadow-lg transition relative w-full px-4 py-3 pr-10">
+    <div className="card bg-white shadow-lg border border-[#562305] rounded-xl hover:shadow-lg transition relative w-full px-3 py-3 pr-8 h-16">
       <p className="text-xs text-[#] font-bold leading-snug">
-        {nickname} さんが <span className="text-[#EB3223]">「{questName}」</span> を達成しました！
+        {nickname} さんがクエストを達成しました！
       </p>
 
       {/* 矢印 */}
