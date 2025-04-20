@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import Image from 'next/image';
 
 interface Props {
   points: {
@@ -44,11 +45,11 @@ export default function PointCarousel({ points }: Props) {
                 </div>
               </div>
               <div className="flex justify-between mt-2">
-                <div className="bg-[#F0EDE3] rounded-lg w-20 h-20 flex items-center justify-center text-sm">
-                  QRコード
+                <div className="rounded-lg w-20 h-20 flex items-center justify-center text-sm ml-4">
+                  <Image src="/images/qrcode.png" alt="QRコード" width={72} height={72} className="object-contain" />
                 </div>
-                <div className="bg-[#F0EDE3] rounded-lg flex-1 ml-4 flex items-center justify-center text-sm">
-                  1234567890
+                <div className="rounded-lg flex-1 ml-2 flex items-center justify-center text-sm">
+                  <Image src="/images/barcode.png" alt="バーコード" width={150} height={50} className="object-contain" />
                 </div>
               </div>
             </div>
