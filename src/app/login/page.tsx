@@ -18,44 +18,8 @@ export default function LoginPage() {
       return;
     }
 
-<<<<<<< HEAD
-    setError('');
-    const res = await fetch('http://localhost:8000/send-login-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
-  
-    const data = await res.json();
-    if (res.ok) {
-      console.log('📩 認証コードを送信:', email);
-      setIsCodeSent(true);
-    } else {
-      setError(data.detail || 'コード送信に失敗しました');
-    }
-  };
-
-  const handleVerify = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    const res = await fetch('http://localhost:8000/verify-login-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, code }),
-    });
-  
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem('token', data.access_token);
-      router.push('/home');
-    } else {
-      setError(data.detail || '認証に失敗しました');
-    }
-  };
-  
-=======
     try {
-      const response = await fetch('http://localhost:8000/auth/send-login-code', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/send-login-code`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +47,7 @@ const handleVerify = async (e: React.FormEvent) => {
   e.preventDefault();
 
   try {
-    const response = await fetch('http://localhost:8000/auth/login-verify-code', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/login-verify-code`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -114,10 +78,9 @@ const handleVerify = async (e: React.FormEvent) => {
 };
 
 
->>>>>>> 6badbebdc9cdfb7ce0e1d1fbea549c22a04573a1
 
   const inputClass =
-    'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
+    'input input-bordered w-full border-custom-beige placeholder-custom-beige focus:outline-none focus:ring-2 focus:ring-custom-beige';
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -149,7 +112,7 @@ const handleVerify = async (e: React.FormEvent) => {
               <button
                 type="button"
                 onClick={handleSendCode}
-                className="btn btn-block tracking-wider bg-[#D4C4B5] hover:bg-[#C4B4A5] text-[#562305]"
+                className="btn btn-block tracking-wider bg-custom-brown hover:bg-custom-hover-brown text-custom-dark-brown"
               >
                 ログイン
               </button>

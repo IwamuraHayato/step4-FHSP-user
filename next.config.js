@@ -2,7 +2,13 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: ['tech0gen8step4himstorage.blob.core.windows.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'tech0gen8step4himstorage.blob.core.windows.net',
+        pathname: '/image/**',
+      },
+    ],
   },
   // 静的ファイルの処理を改善
   experimental: {

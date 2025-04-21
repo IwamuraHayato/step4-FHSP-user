@@ -76,6 +76,10 @@ module.exports = {
       },
       colors: {
         brown: '#562305',
+        'custom-brown': '#D4C4B5',
+        'custom-hover-brown': '#C4B4A5',
+        'custom-dark-brown': '#562305',
+        'custom-beige': '#D4C8BB',
       },
       fontFamily: {
         sans: ['Montserrat', 'sans-serif'],
