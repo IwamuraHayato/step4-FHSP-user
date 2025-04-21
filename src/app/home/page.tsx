@@ -119,7 +119,9 @@ export default function HomePage() {
             >
               <div className="grid grid-cols gap-3">
                 {recommendedEvents.map((event) => (
-                  <EventCard key={event.id} {...event} />
+                  <Link href={`/eventdetail/${event.event_id}`} key={event.event_id}>
+                    <EventCard {...event} />
+                  </Link>
                 ))}
               </div>
 

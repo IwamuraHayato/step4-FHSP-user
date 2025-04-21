@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export interface EventCardProps {
-  id: string;
+  event_id: string;
   imageUrl: string;
   area: string;
   title: string;
@@ -19,7 +19,7 @@ export interface EventCardProps {
 }
 
 export default function EventCard({
-  id,
+  event_id,
   imageUrl,
   area,
   title,
@@ -31,7 +31,7 @@ export default function EventCard({
 }: EventCardProps) {
   const [isFavorite, setIsFavorite] = useState(defaultFavorite);
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
+  // const router = useRouter();
   const user_id = 3;
 
   const truncateZenkakuText = (text: string, maxLength: number) => {
@@ -50,7 +50,7 @@ export default function EventCard({
     const newState = !isFavorite;
     setIsFavorite(newState);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${event_id}`, {
       method: newState ? 'POST' : 'DELETE',
     });
 
@@ -63,16 +63,16 @@ export default function EventCard({
     console.log(`${title} を ${newState ? 'お気に入り登録' : 'お気に入り解除'}しました`);
   };
 
-  const handleCardClick = () => {
-    router.push(`/event/${id}`);
-  };
+  // const handleCardClick = () => {
+  //   router.push(`/event/${event_id}`);
+  // };
 
   const displayTags = tags.slice(0, 4);
   const hasMoreTags = tags.length > 4;
 
   return (
     <div
-      onClick={handleCardClick}
+      // onClick={handleCardClick}
       className="flex border border-[#E4E4E4] shadow-md bg-white rounded-md p-3 gap-3 min-h-[120px] hover:bg-[#F9F6F2] transition-colors cursor-pointer"
     >
       {/* イベント画像 */}
