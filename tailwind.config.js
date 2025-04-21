@@ -1,13 +1,22 @@
 // tailwind.config.js
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  mode: 'jit',
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './src/app/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}'
+  ],
   safelist: [
-    // daisyUI ボタンやアラートなど頻出のクラスを追加
+    // 既存のクラス
     'btn', 'btn-primary', 'btn-secondary', 'btn-accent', 'btn-neutral',
     'alert', 'alert-success', 'alert-error', 'badge', 'badge-primary',
     'card', 'modal', 'modal-box', 'input', 'select', 'tabs', 'tab', 'tab-active',
-    'dropdown', 'dropdown-content', 'menu', 'menu-title'
-    // 使用しているクラスを随時追加していってOK
+    'dropdown', 'dropdown-content', 'menu', 'menu-title',
+    // 追加: カスタムカラーのクラス
+    'bg-\\[#D4C4B5\\]', 'hover:bg-\\[#C4B4A5\\]', 'text-\\[#562305\\]',
+    'border-\\[#D4C8BB\\]', 'placeholder-\\[#D4C8BB\\]', 'focus:ring-\\[#D4C8BB\\]',
+    // または正規表現パターンでカバー
+    'bg-\\[#.*\\]', 'text-\\[#.*\\]', 'border-\\[#.*\\]', 'hover:bg-\\[#.*\\]'
   ],
   theme: {
     extend: {
