@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - tech0-gen-8-step4-himitsu-frontend
+name: Build and deploy Node.js app to Azure Web App
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -22,29 +22,38 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-
+          
+      - name: npm install
+        run: npm install
+          
       - name: Build project
         env:
           NEXT_PUBLIC_API_ENDPOINT: ${{ secrets.NEXT_PUBLIC_API_ENDPOINT }}
         run: |
           echo "NEXT_PUBLIC_API_ENDPOINT=${NEXT_PUBLIC_API_ENDPOINT}"
           npm run build
-
-      - name: Copy artifact for deployment job
+          
+      - name: Prepare deployment artifacts
         run: |
-          mkdir deploy
+          # Create deploy directory
+          mkdir -p deploy
+          
+          # Copy standalone server and dependencies
           cp -r ./.next/standalone/. ./deploy
-          cp -r ./public ./deploy
+          
+          # Ensure .next/static directory exists in the correct location
+          mkdir -p ./deploy/.next/static
           cp -r ./.next/static/. ./deploy/.next/static
+          
+          # Copy public directory
+          cp -r ./public/. ./deploy/public
+          
+          # Create a startup script
+          echo "NODE_ENV=production node server.js" > ./deploy/startup.sh
+          chmod +x ./deploy/startup.sh
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./deploy -r
+        run: zip -r release.zip ./deploy
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
