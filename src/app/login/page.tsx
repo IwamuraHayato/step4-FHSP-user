@@ -18,6 +18,42 @@ export default function LoginPage() {
       return;
     }
 
+<<<<<<< HEAD
+    setError('');
+    const res = await fetch('http://localhost:8000/send-login-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+  
+    const data = await res.json();
+    if (res.ok) {
+      console.log('📩 認証コードを送信:', email);
+      setIsCodeSent(true);
+    } else {
+      setError(data.detail || 'コード送信に失敗しました');
+    }
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    const res = await fetch('http://localhost:8000/verify-login-code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, code }),
+    });
+  
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('token', data.access_token);
+      router.push('/home');
+    } else {
+      setError(data.detail || '認証に失敗しました');
+    }
+  };
+  
+=======
     try {
       const response = await fetch('http://localhost:8000/auth/send-login-code', {
         method: 'POST',
@@ -78,6 +114,7 @@ const handleVerify = async (e: React.FormEvent) => {
 };
 
 
+>>>>>>> 6badbebdc9cdfb7ce0e1d1fbea549c22a04573a1
 
   const inputClass =
     'input input-bordered w-full border-[#D4C8BB] placeholder-[#D4C8BB] focus:outline-none focus:ring-2 focus:ring-[#D4C8BB]';
