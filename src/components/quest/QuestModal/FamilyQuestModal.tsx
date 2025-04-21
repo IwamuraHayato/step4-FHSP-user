@@ -1,53 +1,44 @@
 'use client';
 
-import { X } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
+import { X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface Quest {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-  reward: number;
-}
+export default function FamilyQuestModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [stepDone, setStepDone] = useState(false);
+  const [messageDone, setMessageDone] = useState(false);
+  const [showRewardModal, setShowRewardModal] = useState(false);
+  const [currentReward, setCurrentReward] = useState<'step' | 'message' | null>(null);
 
-interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-}
+  const handleStepReward = () => {
+    setStepDone(true);
+    setCurrentReward('step');
+    setShowRewardModal(true);
+  };
 
-const mockFamilyQuests: Quest[] = [
-  {
-    id: 'fq1',
-    title: '家族みんながログインする',
-    description: '今日、家族全員がログインしましたか？',
-    completed: true,
-    reward: 50,
-  },
-  {
-    id: 'fq2',
-    title: '家族みんなで次の街へ到着する',
-    description: '全員で到着できたら達成！',
-    completed: false,
-    reward: 100,
-  },
-  {
-    id: 'fq3',
-    title: 'メッセージスタンプを10回押す',
-    description: '家族間でスタンプを10回押してみよう',
-    completed: true,
-    reward: 30,
-  },
-];
+  const handleMessageReward = () => {
+    setMessageDone(true);
+    setCurrentReward('message');
+    setShowRewardModal(true);
+  };
 
-export default function FamilyQuestModal({ isOpen, onClose }: Props) {
-  const [quests] = useState(mockFamilyQuests);
+  const closeRewardModal = () => {
+    setShowRewardModal(false);
+    setCurrentReward(null);
+  };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/40 flex items-end justify-center">
-      <div className="bg-white w-full max-w-md rounded-t-2xl p-6 animate-slideUp relative">
+    <div className="fixed inset-0 z-[9999] bg-black/40 flex items-end justify-center">
+      <motion.div
+        initial={{ y: '100%', opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: '100%', opacity: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="bg-white w-full max-w-md rounded-t-2xl px-6 pt-6 pb-10 relative"
+      >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-[#562305] hover:text-red-400"
@@ -55,31 +46,86 @@ export default function FamilyQuestModal({ isOpen, onClose }: Props) {
           <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-center font-bold text-[#562305] mb-4">ファミリークエスト</h2>
-        <div className="space-y-4 max-h-[60vh] overflow-y-auto">
-          {quests.map((quest) => (
-            <div
-              key={quest.id}
-              className="bg-[#F8F4EF] rounded-lg p-4 shadow flex justify-between items-center"
-            >
-              <div>
-                <p className="text-sm font-semibold text-[#562305]">{quest.title}</p>
-                <p className="text-xs text-[#9F8372]">{quest.description}</p>
-              </div>
-              <button
-                disabled={!quest.completed}
-                className={`text-sm font-bold px-3 py-1 rounded ${
-                  quest.completed
-                    ? 'bg-[#FFA54A] text-white hover:bg-[#FF8E1D]'
-                    : 'bg-gray-300 text-white cursor-not-allowed'
-                }`}
-              >
-                {quest.completed ? `${quest.reward}pt受取` : '未達成'}
-              </button>
+        <h2 className="text-center font-bold text-[#562305] mb-4 text-lg">ファミリークエスト</h2>
+        <hr className="border-[#E9E4DC] mb-4" />
+
+        <div className="space-y-4">
+          {/* 👣 家族で1万歩 */}
+          <div className="flex items-center justify-between bg-[#E3FDE3] p-4 rounded-xl">
+            <div className="flex items-center gap-3">
+              <Image src="/images/icons/icon_house.png" alt="ファミリー" width={32} height={32} />
+              <span className="text-[#562305] text-sm font-semibold">家族で1万歩</span>
             </div>
-          ))}
+            {stepDone ? (
+              <span className="text-xs text-white bg-[#D4C8BB] px-3 py-1 rounded-full">また明日</span>
+            ) : (
+              <button
+                onClick={handleStepReward}
+                className="text-xs text-white font-semibold bg-[#FFA54A] px-3 py-1 rounded-full shadow hover:opacity-80 transition"
+              >
+                達成！
+              </button>
+            )}
+          </div>
+
+          {/* 💬 今日の気分を送り合おう */}
+          <div className="flex items-center justify-between bg-[#FFF4D6] p-4 rounded-xl">
+            <div className="flex items-center gap-3">
+              <Image src="/images/icons/icon_megaphone.png" alt="megaphone" width={32} height={32} />
+              <span className="text-[#562305] text-sm font-semibold">気分を送り合おう</span>
+            </div>
+            {messageDone ? (
+              <span className="text-xs text-white bg-[#D4C8BB] px-3 py-1 rounded-full">また明日</span>
+            ) : (
+              <button
+                onClick={handleMessageReward}
+                className="text-xs text-white font-semibold bg-[#FFA54A] px-3 py-1 rounded-full shadow hover:opacity-80 transition"
+              >
+                達成！
+              </button>
+            )}
+          </div>
         </div>
-      </div>
+      </motion.div>
+
+      {/* ✅ ごほうびモーダル */}
+      <AnimatePresence>
+        {showRewardModal && (
+          <motion.div
+            className="fixed inset-0 z-[99999] bg-black/40 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.3, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.3, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className="bg-white p-6 rounded-xl text-center shadow-xl max-w-xs w-full"
+            >
+              <Image
+                src="/images/icons/icon_house.png"
+                alt="ファミリー"
+                width={80}
+                height={80}
+                className="mx-auto mb-4"
+              />
+              <p className="text-[#562305] font-bold">
+                {currentReward === 'step'
+                  ? '1万歩達成！ポイントゲット！'
+                  : '気分送信完了！ポイントゲット！'}
+              </p>
+              <button
+                onClick={closeRewardModal}
+                className="mt-4 text-sm text-white bg-[#9F8372] px-4 py-1 rounded-full hover:bg-[#b79c8b]"
+              >
+                とじる
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -16,8 +16,7 @@ export default function BottomQuestButtons({
   onRankingNavigate,
 }: BottomQuestButtonsProps) {
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-[#14AE5C] py-responsive z-40">
-      {/* ✅ 親に flex & items-center で中央揃え */}
+    <div className="fixed bottom-0 left-0 w-full bg-gradient-to-t from-[#14AE5C] to-[#43C88A] py-responsive z-40">
       <div className="max-w-md mx-auto px-6 h-full flex justify-center items-center gap-x-6">
         <QuestButton
           icon={
@@ -68,7 +67,7 @@ export default function BottomQuestButtons({
             />
           }
           label="ランキング"
-          onClick={onRankingNavigate}
+          onClick={() => {}}
           bgColor="bg-[#DDC2FF]"
         />
       </div>

@@ -4,8 +4,12 @@ import Image from 'next/image';
 import { CalendarDays, MapPin, Star } from 'lucide-react';
 import HomeHeader from '@/components/common/HomeHeader';
 import BottomNav from '@/components/common/BottomNav';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function EventDetailPage() {
+  const router = useRouter();
+
   const dummyEvent = {
     id: 'e1',
     title: '福マルシェ',
@@ -21,13 +25,19 @@ export default function EventDetailPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0EDE3] pb-24">
+    <motion.div
+      className="min-h-screen bg-[#F0EDE3] pb-24"
+      initial={{ x: '100%', opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: '100%', opacity: 0 }}
+      transition={{ duration: 0.4, ease: 'easeInOut' }}
+    >
       {/* ヘッダー */}
       <HomeHeader />
 
       {/* メインカード */}
       <div className="max-w-md mx-auto px-6 mt-4">
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden relative">
           {/* イベント画像 */}
           <div className="relative px-6 pt-10">
             <Image
@@ -37,9 +47,12 @@ export default function EventDetailPage() {
               height={300}
               className="w-full h-[200px] object-cover"
             />
+
+            {/* 閉じるボタン */}
             <button
-              onClick={() => history.back()}
-              className="absolute top-3 right-3 text-[#9F8372] text-xl bg-[#D4C8BB] rounded-full w-8 h-8 flex items-center justify-center"
+              onClick={() => router.back()}
+              className="absolute top-2 right-2 text-[#9F8372] bg-[#E4D9CE] rounded-full w-8 h-8 flex items-center justify-center hover:bg-[#D4C8BB] transition"
+              aria-label="閉じる"
             >
               ✕
             </button>
@@ -84,6 +97,6 @@ export default function EventDetailPage() {
 
       {/* フッター */}
       <BottomNav />
-    </div>
+    </motion.div>
   );
 }

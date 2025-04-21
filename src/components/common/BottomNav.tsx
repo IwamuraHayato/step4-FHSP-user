@@ -14,7 +14,11 @@ export default function BottomNav() {
           <Home className={iconClass} />
           ホーム
         </Link>
-        <Link href="/qr" className={`${navClass} hover:text-[#562305]`}>
+        <Link
+          href="#"
+          onClick={(e) => e.preventDefault()}
+          className={`${navClass} hover:text-[#562305]`}
+        >
           <QrCode className={iconClass} />
           QRコード
         </Link>
@@ -26,9 +30,13 @@ export default function BottomNav() {
           <Star className={iconClass} />
           イベント
         </Link>
-        <Link href="/account" className={`${navClass} hover:text-[#562305]`}>
-          <User className={iconClass} />
-          アカウント
+        <Link
+        href="#"
+        onClick={(e) => e.preventDefault()}
+        className={`${navClass} hover:text-[#562305]`}
+        >
+        <User className={iconClass} />
+        アカウント
         </Link>
       </div>
     </nav>

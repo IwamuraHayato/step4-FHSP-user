@@ -57,15 +57,15 @@ export default function QuestCard({
   }, [familySteps, userSteps]);
 
   return (
-    <div className="bg-white rounded-xl shadow-xl py-se-sm px-8 py-8 space-y-4 text-center text-[#562305]">
+    <div className="bg-white rounded-xl shadow-xl py-se-sm px-10 py-6 space-y-2 text-center text-[#562305]">
 
       {/* 家族歩数 */}
-      <p className="text-3xl font-bold text-slate-800">
+      <p className="text-xl font-bold text-slate-800">
         {displayedFamilySteps.toLocaleString()} <span className="text-base font-medium text-slate-800">歩</span>
       </p>
 
       {/* あなたの歩数 */}
-      <p className="text-sm text-slate-800">
+      <p className="text-xs text-slate-800">
         {userName}の歩数: <span className="font-bold">{displayedUserSteps.toLocaleString()}</span> 歩
       </p>
 

@@ -68,12 +68,6 @@ export default function EventListTab() {
             event.isPast ? 'opacity-50' : ''
           }`}
         >
-          {/* 画像 or No image */}
-          {/* <img
-            src={event.imageUrl || '/images/no-image.png'}
-            alt={event.title}
-            className="w-24 h-24 object-cover rounded"
-          /> */}
           <Image
             src={event.imageUrl || '/images/no-image.png'}
             alt={event.title}

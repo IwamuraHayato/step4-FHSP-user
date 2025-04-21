@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import HomeHeader from '@/components/common/HomeHeader';
 import QuestCard from '@/components/quest/QuestCard';
 import CharacterDisplay from '@/components/quest/CharacterDisplay';
 import QuestMenu from '@/components/quest/QuestMenu';
 import CharacterSelectModal from '@/components/quest/CharacterSelectModal';
 import BottomQuestButtons from '@/components/quest/BottomQuestButtons';
+import DailyQuestModal from '@/components/quest/QuestModal/DailyQuestModal';
+import FamilyQuestModal from '@/components/quest/QuestModal/FamilyQuestModal';
 import { ChevronLeft } from 'lucide-react';
 
 // 🔙 戻るボタン
@@ -30,6 +31,9 @@ export default function QuestPage() {
   const [showCharacterModal, setShowCharacterModal] = useState(false);
   const [characterSrc, setCharacterSrc] = useState('/images/characters/bababasuo.png');
   const [hasCustomCharacter, setHasCustomCharacter] = useState(false);
+
+  const [showDailyModal, setShowDailyModal] = useState(false);
+  const [showFamilyModal, setShowFamilyModal] = useState(false);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -58,10 +62,10 @@ export default function QuestPage() {
     : 'bg-gradient-to-b from-[#7B80B8] to-[#E7DEF1]';
 
   return (
-    <div className={`min-h-screen ${backgroundClass} relative`}>
+    <div className={`h-[100dvh] w-full ${backgroundClass} relative overflow-hidden`}>
       <BackToHomeButton />
 
-      <main className="px-4 pt-6 pb-36 max-w-md mx-auto space-y-6 relative">
+      <main className="w-full max-w-[480px] px-4 pt-6 pb-36 mx-auto space-y-6 relative">
         <QuestMenu onOpenCharacterModal={() => setShowCharacterModal(true)} />
 
         <QuestCard
@@ -83,13 +87,15 @@ export default function QuestPage() {
         />
       </main>
 
-      {/* ✅ フッターは固定表示のまま */}
       <BottomQuestButtons
-        onDailyOpen={() => {}}
-        onFamilyOpen={() => {}}
+        onDailyOpen={() => setShowDailyModal(true)}
+        onFamilyOpen={() => setShowFamilyModal(true)}
         onSpecialOpen={() => {}}
         onRankingNavigate={() => router.push('/ranking')}
       />
+
+      <DailyQuestModal isOpen={showDailyModal} onClose={() => setShowDailyModal(false)} />
+      <FamilyQuestModal isOpen={showFamilyModal} onClose={() => setShowFamilyModal(false)} />
     </div>
   );
 }
