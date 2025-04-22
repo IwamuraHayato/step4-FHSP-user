@@ -64,7 +64,7 @@ const handleNext = async (e: React.FormEvent) => {
     return;
   }
 
-  const res = await fetch('http://localhost:8000/register/step2', {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register/step2`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

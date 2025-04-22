@@ -37,7 +37,7 @@ export default function RegisterStep3() {
     setError('');
     
       try {
-        const res = await fetch('http://localhost:8000/auth/send-code', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/send-code`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const handleVerify = async (e: React.FormEvent) => {
   console.log("🚀 verify-code に送信するデータ:", payload); // ★ここで送信前にログ！
 
   try {
-    const res = await fetch('http://localhost:8000/auth/verify-code', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/verify-code`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

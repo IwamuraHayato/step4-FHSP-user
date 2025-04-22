@@ -7,16 +7,27 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}'
   ],
   safelist: [
-    // 既存のクラス
-    'btn', 'btn-primary', 'btn-secondary', 'btn-accent', 'btn-neutral',
-    'alert', 'alert-success', 'alert-error', 'badge', 'badge-primary',
-    'card', 'modal', 'modal-box', 'input', 'select', 'tabs', 'tab', 'tab-active',
-    'dropdown', 'dropdown-content', 'menu', 'menu-title',
-    // 追加: カスタムカラーのクラス
-    'bg-\\[#D4C4B5\\]', 'hover:bg-\\[#C4B4A5\\]', 'text-\\[#562305\\]',
-    'border-\\[#D4C8BB\\]', 'placeholder-\\[#D4C8BB\\]', 'focus:ring-\\[#D4C8BB\\]',
-    // または正規表現パターンでカバー
-    'bg-\\[#.*\\]', 'text-\\[#.*\\]', 'border-\\[#.*\\]', 'hover:bg-\\[#.*\\]'
+    {
+      pattern: /^(btn|alert|badge|card|modal|input|select|tabs|tab|dropdown|menu|tooltip|progress|indicator|avatar|chip|collapse|carousel|step|kbd|stat|timeline|toast|swap|rating|join)/,
+    },
+    {
+      pattern: /^bg-/, // 背景色
+    },
+    {
+      pattern: /^text-/, // テキスト色
+    },
+    {
+      pattern: /^border-/, // ボーダー
+    },
+    {
+      pattern: /^hover:bg-/, // ホバー時の背景色
+    },
+    {
+      pattern: /^placeholder-/, // プレースホルダー色
+    },
+    {
+      pattern: /^focus:ring-/, // フォーカスリング
+    },
   ],
   theme: {
     extend: {

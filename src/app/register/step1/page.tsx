@@ -31,7 +31,7 @@ export default function RegisterStep1() {
     // メールは将来的にログインと合わせる想定ですが、仮で固定値にしてもOK
     const email = "test@example.com";
 
-    const res = await fetch("http://localhost:8000/register/step1", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register/step1`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
