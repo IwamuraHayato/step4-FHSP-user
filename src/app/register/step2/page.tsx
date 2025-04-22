@@ -54,7 +54,7 @@ export default function RegisterStep2() {
 
 // const searchParams = useSearchParams();
 // const userId = searchParams.get('user_id');
-const userId = 3;
+const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
 
 const handleNext = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -82,7 +82,7 @@ const handleNext = async (e: React.FormEvent) => {
     localStorage.setItem("user_id", String(userId));
 
     // ✅ Step3に遷移
-    router.push('/register/step3?user_id=${userId}');
+    router.push(`/register/step3?user_id=${userId}`);
   } else {
     alert(data.detail || 'Step2の登録に失敗しました');
   }
