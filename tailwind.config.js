@@ -8,25 +8,25 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /^(btn|alert|badge|card|modal|input|select|tabs|tab|dropdown|menu|tooltip|progress|indicator|avatar|chip|collapse|carousel|step|kbd|stat|timeline|toast|swap|rating|join)/,
+      pattern: /^(btn|btn-block|btn-outline|btn-primary|btn-secondary|btn-accent|btn-neutral|alert|badge|card|modal|input|select|tabs|tab|dropdown|menu|tooltip|progress|indicator|avatar|chip|collapse|carousel|step|kbd|stat|timeline|toast|swap|rating|join)/,
     },
     {
-      pattern: /^bg-/, // 背景色
+      pattern: /^bg-(\[.*\]|red|green|blue|yellow|.*)/,        // 通常背景色 + カスタムカラー
     },
     {
-      pattern: /^text-/, // テキスト色
+      pattern: /^text-(\[.*\]|red|green|blue|yellow|.*)/,      // テキスト色 + カスタムカラー
     },
     {
-      pattern: /^border-/, // ボーダー
+      pattern: /^border-(\[.*\]|red|green|blue|yellow|.*)/,    // ボーダー + カスタムカラー
     },
     {
-      pattern: /^hover:bg-/, // ホバー時の背景色
+      pattern: /^hover:bg-(\[.*\]|red|green|blue|yellow|.*)/,  // ホバー時の背景色 + カスタムカラー
     },
     {
-      pattern: /^placeholder-/, // プレースホルダー色
+      pattern: /^placeholder-(\[.*\]|red|green|blue|yellow|.*)/, // プレースホルダー色
     },
     {
-      pattern: /^focus:ring-/, // フォーカスリング
+      pattern: /^focus:ring-(\[.*\]|red|green|blue|yellow|.*)/,  // フォーカスリング
     },
   ],
   theme: {

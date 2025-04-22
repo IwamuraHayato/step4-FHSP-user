@@ -15,7 +15,7 @@ const nextConfig = {
     outputFileTracingRoot: process.cwd(),
   },
   // assetPrefixを追加（重要）
-  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+  // assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
   // CSSモジュールのサポートを明示的に有効化
   transpilePackages: ['tailwindcss', 'daisyui']
 };
