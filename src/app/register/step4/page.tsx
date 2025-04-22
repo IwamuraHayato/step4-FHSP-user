@@ -41,7 +41,7 @@ export default function RegisterStep4() {
   const saibugasId = gasCode;
 
   try {
-    const res = await fetch('http://localhost:8000/register/step4', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register/step4`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
