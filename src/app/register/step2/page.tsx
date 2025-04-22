@@ -10,38 +10,38 @@ import SelectableTagList from '@/components/common/SelectableTagList';
 
 export default function RegisterStep2() {
   const router = useRouter();
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+  const [selectedInterests, setSelectedInterests] = useState<number[]>([]);
 
   const interestOptions = [
-    { id: 'active', label: 'アクティブ' },
-    { id: 'sports', label: 'スポーツ' },
-    { id: 'outdoor', label: 'アウトドア' },
-    { id: 'walk', label: 'ウォーキング' },
-    { id: 'history', label: '文化・歴史' },
-    { id: 'craft', label: '伝統工芸' },
-    { id: 'temple', label: '神社仏閣' },
-    { id: 'art', label: 'アート' },
-    { id: 'gourmet', label: 'グルメ' },
-    { id: 'tabearuki', label: '食べ歩き' },
-    { id: 'cafe', label: 'カフェ巡り' },
-    { id: 'sweets', label: 'スイーツ' },
-    { id: 'event', label: '地域イベント' },
-    { id: 'entertainment', label: 'エンタメ' },
-    { id: 'matsuri', label: 'お祭り' },
-    { id: 'lifeevent', label: 'ライフイベント' },
-    { id: 'experience', label: '学び・体験' },
-    { id: 'contribute', label: '社会貢献' },
-    { id: 'volunteer', label: 'ボランティア' },
-    { id: 'childcare', label: '子育て支援' },
-    { id: 'community', label: '地域活性化' },
-    { id: 'eco', label: 'エコ志向' },
-    { id: 'health', label: '健康志向' },
-    { id: 'digital', label: 'デジタル' },
-    { id: 'slow', label: 'のんびり派' },
-    { id: 'lifestyle', label: 'ライフスタイル' },
+    { id: 1, label: 'アクティブ' },
+    { id: 2, label: 'スポーツ' },
+    { id: 3, label: 'アウトドア' },
+    { id: 4, label: 'ウォーキング' },
+    { id: 5, label: '文化・歴史' },
+    { id: 6, label: '伝統工芸' },
+    { id: 7, label: '神社仏閣' },
+    { id: 8, label: 'アート' },
+    { id: 9, label: 'グルメ' },
+    { id: 10, label: '食べ歩き' },
+    { id: 11, label: 'カフェ巡り' },
+    { id: 12, label: 'スイーツ' },
+    { id: 13, label: '地域イベント' },
+    { id: 14, label: 'エンタメ' },
+    { id: 15, label: 'お祭り' },
+    { id: 16, label: 'ライフイベント' },
+    { id: 17, label: '学び・体験' },
+    { id: 18, label: '社会貢献' },
+    { id: 19, label: 'ボランティア' },
+    { id: 20, label: '子育て支援' },
+    { id: 21, label: '地域活性化' },
+    { id: 22, label: 'エコ志向' },
+    { id: 23, label: '健康志向' },
+    { id: 24, label: 'デジタル' },
+    { id: 25, label: 'のんびり派' },
+    { id: 26, label: 'ライフスタイル' },
   ];
 
-  const handleToggleInterest = (id: string) => {
+  const handleToggleInterest = (id: number) => {
     setSelectedInterests((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
@@ -54,7 +54,7 @@ export default function RegisterStep2() {
 
 // const searchParams = useSearchParams();
 // const userId = searchParams.get('user_id');
-const userId = 3;
+const userId = typeof window !== 'undefined' ? localStorage.getItem('user_id') : null;
 
 const handleNext = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -82,7 +82,7 @@ const handleNext = async (e: React.FormEvent) => {
     localStorage.setItem("user_id", String(userId));
 
     // ✅ Step3に遷移
-    router.push('/register/step3?user_id=${userId}');
+    router.push(`/register/step3?user_id=${userId}`);
   } else {
     alert(data.detail || 'Step2の登録に失敗しました');
   }

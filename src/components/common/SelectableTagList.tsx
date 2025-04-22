@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 
 interface Option {
-  id: string;
+  id: number;
   label: string;
 }
 
 interface SelectableTagListProps {
   options: Option[];
-  selected: string[];
-  onToggle: (id: string) => void;
+  selected: number[];
+  onToggle: (id: number) => void;
 }
 
 export default function SelectableTagList({
