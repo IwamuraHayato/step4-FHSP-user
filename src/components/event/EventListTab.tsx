@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface FavoriteEvent {
   id: string;
@@ -62,32 +63,42 @@ export default function EventListTab() {
   return (
     <div className="px-4 pt-4 pb-32 max-w-md mx-auto space-y-4">
       {favorites.map((event) => (
-        <div
-          key={event.id}
-          className={`flex items-center gap-4 p-3 rounded shadow bg-white relative transition-opacity ${
-            event.isPast ? 'opacity-50' : ''
-          }`}
-        >
-          <Image
-            src={event.imageUrl || '/images/no-image.png'}
-            alt={event.title}
-            width={96}   // w-24 = 24 * 4 = 96px
-            height={96}  // h-24 = 96px
-            className="object-cover rounded"
-          />
-
-          {/* イベント情報 */}
-          <div className="flex-1">
-            <div className="text-xs text-[#FFA54A] font-semibold mb-1">{event.area}</div>
-            <div className="font-bold text-sm truncate text-[#562305]">{event.title}</div>
-            <div className="text-xs text-[#9F8372] mt-1">{event.date}</div>
+        <div key={event.id} className="space-y-4"> {/* ← ここでスペースを確保 */}
+        <Link href={`/eventdetail/${event.id}`}>
+          <div
+            className={`flex items-center gap-4 p-3 rounded shadow bg-white relative transition-opacity ${
+              event.isPast ? 'opacity-50' : ''
+            } hover:bg-[#F9F6F2] cursor-pointer`}
+          >
+            <Image
+              src={event.imageUrl || '/images/no-image.png'}
+              alt={event.title}
+              width={96}
+              height={96}
+              className="object-cover rounded"
+            />
+    
+            {/* イベント情報 */}
+            <div className="flex-1">
+              <div className="text-xs text-[#FFA54A] font-semibold mb-1">{event.area}</div>
+              <div className="font-bold text-sm truncate text-[#562305]">{event.title}</div>
+              <div className="text-xs text-[#9F8372] mt-1">{event.date}</div>
+            </div>
+    
+            {/* 削除ボタン */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();        // ← ページ遷移を防ぐ
+                e.stopPropagation();
+                handleRemove(event.id);
+              }}
+              aria-label="削除"
+            >
+              <Trash2 className="w-5 h-5 text-[#D4C8BB] hover:text-red-400" />
+            </button>
           </div>
-
-          {/* 削除ボタン */}
-          <button onClick={() => handleRemove(event.id)} aria-label="削除">
-            <Trash2 className="w-5 h-5 text-[#D4C8BB] hover:text-red-400" />
-          </button>
-        </div>
+        </Link>
+      </div>
       ))}
 
       {favorites.length === 0 && (
