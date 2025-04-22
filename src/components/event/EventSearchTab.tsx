@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Loader2, X } from 'lucide-react';
 import EventCard from '@/components/home/EventCard';
+import Link from 'next/link';
 
 type EventApiResponse = {
   id: string;
@@ -74,6 +75,7 @@ export default function EventSearchTab() {
   
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/events/search?${query.toString()}`);
     const data = await res.json();
+    console.log(data)
     const now = new Date();
   
     const events = data.events.map((e: EventApiResponse) => ({
@@ -205,7 +207,9 @@ export default function EventSearchTab() {
       ) : (
         <div className="grid grid-cols gap-3">
           {visibleEvents.map((event) => (
-            <EventCard key={event.id} {...event} user_id={3} />
+            <Link href={`/eventdetail/${event.id}`} key={event.id}>
+              <EventCard {...event} user_id={3} />
+            </Link>
           ))}
         </div>
       )}
