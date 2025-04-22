@@ -51,6 +51,7 @@ export default function HomePage() {
         setIsLoading(true);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/recommendations/${user_id}?top_n=5`);
         const data = await res.json();
+        console.log(data.events);
 
         if (Array.isArray(data.events)) {
           setRecommendedEvents(data.events);
@@ -119,7 +120,7 @@ export default function HomePage() {
             >
               <div className="grid grid-cols gap-3">
                 {recommendedEvents.map((event) => (
-                  <Link href={`/eventdetail/${event.event_id}`} key={event.event_id}>
+                  <Link href={`/eventdetail/${event.id}`} key={event.id}>
                     <EventCard {...event} />
                   </Link>
                 ))}

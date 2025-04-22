@@ -6,7 +6,7 @@ import { Star } from 'lucide-react';
 import { useState } from 'react';
 
 export interface EventCardProps {
-  event_id: string;
+  id: string;
   imageUrl: string;
   area: string;
   title: string;
@@ -19,7 +19,7 @@ export interface EventCardProps {
 }
 
 export default function EventCard({
-  event_id,
+  id,
   imageUrl,
   area,
   title,
@@ -50,7 +50,7 @@ export default function EventCard({
     const newState = !isFavorite;
     setIsFavorite(newState);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${event_id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}/${id}`, {
       method: newState ? 'POST' : 'DELETE',
     });
 
@@ -64,7 +64,7 @@ export default function EventCard({
   };
 
   // const handleCardClick = () => {
-  //   router.push(`/event/${event_id}`);
+  //   router.push(`/eventdetail/${id}`); 
   // };
 
   const displayTags = tags.slice(0, 4);
@@ -72,7 +72,6 @@ export default function EventCard({
 
   return (
     <div
-      // onClick={handleCardClick}
       className="flex border border-[#E4E4E4] shadow-md bg-white rounded-md p-3 gap-3 min-h-[120px] hover:bg-[#F9F6F2] transition-colors cursor-pointer"
     >
       {/* イベント画像 */}

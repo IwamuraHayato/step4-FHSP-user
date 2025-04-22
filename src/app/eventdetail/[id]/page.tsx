@@ -33,8 +33,9 @@ export default function EventDetailPage() {
 
   useEffect(() => {
     const fetchEvent = async () => {
+      console.log("fetch実行 id:", id); 
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/event/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/event/${id}`);
         if (!res.ok) throw new Error('イベント取得に失敗しました');
         const data = await res.json();
         setEvent(data);
