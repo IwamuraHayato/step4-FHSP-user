@@ -18,7 +18,7 @@ type Event = {
   store_name?: string;
   image_url?: string;
   flyer_url?: string;
-  information?: string;
+  point_info?: string;
   tags: string[];
 };
 
@@ -38,6 +38,7 @@ export default function EventDetailPage() {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/event/${id}`);
         if (!res.ok) throw new Error('イベント取得に失敗しました');
         const data = await res.json();
+        console.log(data);
         setEvent(data);
       } catch (err: any) {
         setError(err.message);
@@ -119,10 +120,10 @@ export default function EventDetailPage() {
             </div>
 
             {/* Happy Smile Point 枠 */}
-            {event.information && (
+            {event.point_info && (
               <div className="border border-[#FF6B6B] p-3 rounded-sm">
                 <h2 className="text-sm font-bold text-[#FF6B6B] mb-1">Happy Smile Point</h2>
-                <p className="text-sm leading-relaxed">{event.information}</p>
+                <p className="text-sm leading-relaxed">{event.point_info}</p>
               </div>
             )}
           </div>
