@@ -35,8 +35,16 @@ export default function EventSearchTab() {
 
   const availableTags = [
     'グルメ', 'お祭り', '地域活性化', 'のんびり派', 'アクティブ',
-    '学び・体験', '文化・歴史', 'スイーツ', 'エンタメ', 'ウォーキング'
+    '学び・体験', '文化・歴史', 'スイーツ', 'エンタメ', 'ウォーキング', 'AI抽出', '福岡県公式'
   ];
+
+  const [userId, setUserId] = useState<number | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('user_id');
+    if (stored) {
+      setUserId(Number(stored));
+    }
+  }, []);
 
   useEffect(
     () => {
@@ -208,7 +216,9 @@ export default function EventSearchTab() {
         <div className="grid grid-cols gap-3">
           {visibleEvents.map((event) => (
             <Link href={`/eventdetail/${event.id}`} key={event.id}>
-              <EventCard {...event} user_id={3} />
+              {userId !== null && (
+                <EventCard {...event} user_id={userId} />
+              )}
             </Link>
           ))}
         </div>

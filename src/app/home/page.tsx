@@ -41,7 +41,16 @@ export default function HomePage() {
     setPoints(mockData);
   }, []);
 
-  const user_id = 3;
+  const [userId, setUserId] = useState<number | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('user_id');
+    if (stored) {
+      setUserId(Number(stored));
+    }
+  }, []);
+  const user_id = userId;
+  console.log("user_id:", user_id)
+  
   const [recommendedEvents, setRecommendedEvents] = useState<EventCardProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 

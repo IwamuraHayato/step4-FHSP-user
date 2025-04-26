@@ -25,15 +25,25 @@ type FavoriteEventApiResponse = {
 
 export default function EventListTab() {
   const [favorites, setFavorites] = useState<FavoriteEvent[]>([]);
-  const user_id = 3;
+  const [userId, setUserId] = useState<number | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('user_id');
+    if (stored) {
+      setUserId(Number(stored));
+    }
+  }, []);
+  const user_id = userId;
+  console.log("user_id:", user_id)
 
   useEffect(() => {
+    if (userId === null) return; // ← ここでガード！
+  
     const fetchFavorites = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${user_id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/favorites/${userId}`);
       const data = await res.json();
-
+  
       const now = new Date();
-
+  
       const events = data.favorites
         .map((e: FavoriteEventApiResponse) => ({
           id: e.event_id,
@@ -49,12 +59,12 @@ export default function EventListTab() {
           if (a.isPast === b.isPast) return aTime - bTime;
           return a.isPast ? 1 : -1;
         });
-
+  
       setFavorites(events);
     };
-
+  
     fetchFavorites();
-  }, []);
+  }, [userId]);
 
   const handleRemove = (id: string) => {
     setFavorites((prev) => prev.filter((e) => e.id !== id));

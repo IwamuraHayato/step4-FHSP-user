@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Star } from 'lucide-react';
 // import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface EventCardProps {
   id: string;
@@ -32,7 +32,15 @@ export default function EventCard({
   const [isFavorite, setIsFavorite] = useState(defaultFavorite);
   const [showModal, setShowModal] = useState(false);
   // const router = useRouter();
-  const user_id = 3;
+    const [userId, setUserId] = useState<number | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('user_id');
+    if (stored) {
+      setUserId(Number(stored));
+    }
+  }, []);
+  const user_id = userId;
+  console.log("user_id:", user_id)
 
   const truncateZenkakuText = (text: string, maxLength: number) => {
     let count = 0;
@@ -64,7 +72,7 @@ export default function EventCard({
   };
 
   // const handleCardClick = () => {
-  //   router.push(`/eventdetail/${id}`); 
+  //   router.push(`/eventdetail/：：${id}`); 
   // };
 
   const displayTags = tags.slice(0, 4);

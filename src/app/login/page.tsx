@@ -17,6 +17,11 @@ export default function LoginPage() {
       setError('有効なメールアドレスを入力してください');
       return;
     }
+    if (email == '1234@abc.com'){
+      alert("ダミーユーザーです。認証コード「123456」を入力してください。");
+      setIsCodeSent(true);
+      return;
+    }
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/send-login-code`, {
